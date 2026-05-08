@@ -31,21 +31,37 @@ Open terminal and run:
 
 ```bash
 gcloud config set project cv-generator-workshop
+```
 
-gcloud services enable \
-  run.googleapis.com \
-  cloudbuild.googleapis.com \
-  artifactregistry.googleapis.com \
-  firestore.googleapis.com \
-  secretmanager.googleapis.com \
-  storage-api.googleapis.com \
-  logging.googleapis.com \
-  iam.googleapis.com
+Then copy-paste this single command (all on one line):
+
+```bash
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com firestore.googleapis.com secretmanager.googleapis.com storage-api.googleapis.com logging.googleapis.com iam.googleapis.com
+```
+
+**Alternative** (if you prefer line-by-line):
+```powershell
+gcloud services enable run.googleapis.com; gcloud services enable cloudbuild.googleapis.com; gcloud services enable artifactregistry.googleapis.com; gcloud services enable firestore.googleapis.com; gcloud services enable secretmanager.googleapis.com; gcloud services enable storage-api.googleapis.com; gcloud services enable logging.googleapis.com; gcloud services enable iam.googleapis.com
 ```
 
 **Wait**: Takes 2-3 minutes for all APIs to enable
 
 **Verify**: No error messages in terminal
+
+### What Services Are We Enabling? (And Why)
+
+| API | Purpose | Why Needed |
+|-----|---------|-----------|
+| **run.googleapis.com** | Cloud Run API | Deploy Express app to serverless container service |
+| **cloudbuild.googleapis.com** | Cloud Build API | Build Docker images automatically from source |
+| **artifactregistry.googleapis.com** | Artifact Registry API | Store Docker images in private registry |
+| **firestore.googleapis.com** | Cloud Firestore API | Database to store generated CVs |
+| **secretmanager.googleapis.com** | Secret Manager API | Secure storage for GitHub token + API keys |
+| **storage-api.googleapis.com** | Cloud Storage API | Store exported PDF/DOCX files |
+| **logging.googleapis.com** | Cloud Logging API | Monitor app logs, API latency, errors |
+| **iam.googleapis.com** | IAM API | Manage service account permissions |
+
+**TL;DR**: Run the single-line command above. It enables all 8 services needed for the CV Generator to work end-to-end.
 
 ### Method B: Using Console (Manual)
 
@@ -124,17 +140,26 @@ Should show both `github-token` and `openai-api-key`
 
 Cloud Run needs a service account with permissions to access Firestore and Secrets:
 
+**Step 1**: Create service account
 ```bash
-# Create service account
-gcloud iam service-accounts create cv-generator \
-  --display-name="CV Generator Service Account"
+gcloud iam service-accounts create cv-generator --display-name="CV Generator Service Account"
+```
 
-# Store the service account email for later
-export SA_EMAIL=$(gcloud iam service-accounts list \
-  --filter="displayName:CV Generator Service Account" \
-  --format='value(email)')
+**Step 2**: Store the service account email
+```bash
+export SA_EMAIL=$(gcloud iam service-accounts list --filter="displayName:CV Generator Service Account" --format='value(email)')
+echo $SA_EMAIL
+```
 
-echo $SA_EMAIL  # Should print something like: cv-generator@cv-generator-workshop.iam.gserviceaccount.com
+**Expected output**:
+```
+cv-generator@cv-generator-workshop.iam.gserviceaccount.com
+```
+
+If the above doesn't work, set it manually:
+```bash
+export SA_EMAIL="cv-generator@$(gcloud config get-value project).iam.gserviceaccount.com"
+echo $SA_EMAIL
 ```
 
 ---
@@ -147,36 +172,22 @@ Give the service account permissions to access Firestore, Secrets, and Storage:
 # Get your project ID
 export PROJECT_ID=$(gcloud config get-value project)
 
-# Role: Firestore Editor (read/write CVs)
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$SA_EMAIL" \
-  --role="roles/datastore.user" \
-  --quiet
+# Role 1: Firestore Editor (read/write CVs)
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/datastore.user" --quiet
 
-# Role: Secret Manager Accessor (read API keys)
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$SA_EMAIL" \
-  --role="roles/secretmanager.secretAccessor" \
-  --quiet
+# Role 2: Secret Manager Accessor (read API keys)
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/secretmanager.secretAccessor" --quiet
 
-# Role: Cloud Storage Object Creator (save PDFs)
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$SA_EMAIL" \
-  --role="roles/storage.objectCreator" \
-  --quiet
+# Role 3: Cloud Storage Object Creator (save PDFs)
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/storage.objectCreator" --quiet
 
-# Role: Cloud Logging Writer (send logs)
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$SA_EMAIL" \
-  --role="roles/logging.logWriter" \
-  --quiet
+# Role 4: Cloud Logging Writer (send logs)
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/logging.logWriter" --quiet
 ```
 
-**Verify**:
+**Verify** (copy-paste single line):
 ```bash
-gcloud projects get-iam-policy $PROJECT_ID \
-  --flatten="bindings[].members" \
-  --filter="bindings.members:$SA_EMAIL"
+gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members" --filter="bindings.members:$SA_EMAIL"
 ```
 
 Should list 4 roles for your service account
@@ -318,10 +329,19 @@ docker push $REGISTRY_REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/
 
 ## Step 13: Deploy to Cloud Run
 
+**Step 1**: Set variables
 ```bash
 export PROJECT_ID=$(gcloud config get-value project)
 export SA_EMAIL="cv-generator@${PROJECT_ID}.iam.gserviceaccount.com"
+```
 
+**Step 2**: Deploy (single-line version - copy & paste as-is):
+```bash
+gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account $SA_EMAIL --memory 512Mi --cpu 1 --timeout 3600 --max-instances 100 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
+```
+
+**Alternative** (multi-line, easier to read):
+```bash
 gcloud run deploy cv-generator \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest \
   --region us-central1 \

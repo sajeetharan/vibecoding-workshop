@@ -380,7 +380,12 @@ Test: Your API calls should work with Secret Manager tokens
 
 Once all phases complete, test the full pipeline:
 
-**Step 1**: Call profile signals
+**Step 1**: Call profile signals (single-line version - copy & paste as-is):
+```bash
+curl -X POST http://localhost:3000/api/profile-signals -H "Content-Type: application/json" -d '{"gitHubUsername":"torvalds","stackOverflowUserId":"1"}'
+```
+
+**Alternative** (multi-line, easier to read):
 ```bash
 curl -X POST http://localhost:3000/api/profile-signals \
   -H "Content-Type: application/json" \
@@ -389,7 +394,12 @@ curl -X POST http://localhost:3000/api/profile-signals \
 
 **Expected**: Combined GitHub + Stack Overflow data
 
-**Step 2**: Generate CV from signals
+**Step 2**: Generate CV from signals (single-line version - copy & paste as-is):
+```bash
+curl -X POST http://localhost:3000/api/generate-cv -H "Content-Type: application/json" -d '{"gitHubUsername":"torvalds","stackOverflowUserId":"1"}'
+```
+
+**Alternative** (multi-line):
 ```bash
 curl -X POST http://localhost:3000/api/generate-cv \
   -H "Content-Type: application/json" \

@@ -1339,13 +1339,10 @@ Security: Use env var for token</pre>
         </header>
         <pre>gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
-# Enable all required APIs
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
-  artifactregistry.googleapis.com firestore.googleapis.com \
-  secretmanager.googleapis.com storage-api.googleapis.com
-# Deploy the service
-gcloud run deploy ai-cv-generator --source app --region us-central1 \
-  --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=YOUR_PROJECT_ID"</pre>
+# Enable all required APIs (single line - copy & paste)
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com firestore.googleapis.com secretmanager.googleapis.com storage-api.googleapis.com
+# Deploy the service (single line - copy & paste)
+gcloud run deploy ai-cv-generator --source app --region us-central1 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=YOUR_PROJECT_ID"</pre>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
