@@ -647,6 +647,16 @@
           <li>Ship a full-stack app</li>
           <li>Deploy and validate in Google Cloud Run</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li>These are your success criteria for today.</li>
+            <li>By lunch, everyone should have a working deployed app - that's the win.</li>
+            <li>The secondary goal is learning PATTERNS, not just code.</li>
+            <li>Emphasize: "You'll leave with skills you can use on your next project tomorrow."</li>
+            <li>Transition to Session Flow - show them the timeline.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -663,6 +673,15 @@
           <li>Deploy to Google Cloud Run</li>
           <li>Q&A and wrap-up</li>
         </ol>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li>Show the timeline: 40 mins of slides, rest is BUILDING.</li>
+            <li>Emphasize the green banner - that's where they stop listening and start coding.</li>
+            <li>"Less slides, more shipping" - set the vibe early.</li>
+            <li>After this slide, set expectations: "Questions held until Q&A block - keep momentum."</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -958,6 +977,16 @@ What should I start with?</pre>
           <li>Track assumptions explicitly</li>
           <li>Keep a human decision log</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Key principle:</strong> AI is a tool, not a replacement for engineering judgment.</li>
+            <li><strong>Small steps:</strong> Don't ask for "build entire app". Ask for "build login endpoint", then next piece.</li>
+            <li><strong>Always read:</strong> Before accepting AI code, understand what it does. Takes 30 seconds, saves hours of debugging.</li>
+            <li><strong>Test immediately:</strong> After each AI suggestion, test it. Catch bugs early.</li>
+            <li><strong>Decision log:</strong> Note why you chose something over another option. Builds knowledge over time.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1049,11 +1078,17 @@ What should I start with?</pre>
             <div><p style="margin: 0; font-size: 1.1rem; font-weight: 600;">Verify</p><p style="margin: 0; font-size: 1.05rem; color: #334155;">Reproduce same steps again</p></div>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Debugging methodology:</strong> Follow this systematic approach when code breaks.</li>
+            <li><strong>1. Trace:</strong> Don't guess. Add logs, use browser DevTools, understand the flow.</li>
+            <li><strong>2. Hypothesize:</strong> Make 3 guesses. "Could be authentication", "Could be CORS", "Could be schema mismatch".</li>
+            <li><strong>3. Patch:</strong> Try the safest fix first. Don't refactor while debugging.</li>
+            <li><strong>4. Verify:</strong> Run exact same steps again. Confirm fix is real, not coincidence.</li>
+          </ul>
+        </div>
       </section>
-
-      <section class="slide">
-        <header>
-          <h1>Architecture We Will Build</h1>
         </header>
         <div class="diagram">
           <svg viewBox="0 0 900 350" aria-label="Fuel Finder Live architecture diagram">
@@ -1112,6 +1147,16 @@ What should I start with?</pre>
           <li>Confirm feed updates correctly</li>
         </ul>
         <p class="lead"><strong>Definition of done:</strong> Team can submit and view fuel/gas reports locally.</p>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>This is the hands-on phase.</strong> Teams work independently now; you circulate.</li>
+            <li><strong>What they'll do:</strong> Clone repo, install deps, run server, test endpoints with Cursor help.</li>
+            <li><strong>Common issues:</strong> npm install takes too long (use npm ci), port conflicts (use port 3001), CORS errors (add middleware).</li>
+            <li><strong>Success metric:</strong> Each team can POST a report and see it in the GET response.</li>
+            <li><strong>Time allocation:</strong> 20 minutes for this part.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1135,6 +1180,16 @@ What should I start with?</pre>
               <li>Add observability ideas</li>
             </ul>
           </div>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Undergraduate track:</strong> Choose 2 quality improvements. Focus on making it work reliably.</li>
+            <li><strong>Graduate track:</strong> Think about scale. How would this work with 100K users? What data strategy?</li>
+            <li><strong>Cursor prompts:</strong> "Review this component for accessibility", "Add error handling for slow networks", "Improve loading UX".</li>
+            <li><strong>Code review practice:</strong> Have teams review each other's AI-generated code. Learning moment.</li>
+            <li><strong>Time allocation:</strong> 10-15 minutes. Then deploy!</li>
+          </ul>
         </div>
       </section>
 
