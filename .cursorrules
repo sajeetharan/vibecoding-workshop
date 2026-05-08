@@ -5,7 +5,7 @@
 You are helping developers build an **AI Powered CV Generator** - a SaaS app that:
 - Accepts GitHub username + Stack Overflow user ID
 - Fetches public profile data (repos, reputation, badges)
-- Generates professional CVs using Claude/GPT-4
+- Generates professional CVs using Gemini/Claude/GPT-4
 - Stores CVs in Firestore on GCP
 - Deploys to Cloud Run for production use
 
@@ -18,7 +18,7 @@ Browser UI → Express.js API (Node.js) → GCP Services
              ├── Stack Overflow API (reputation)
              ├── Firestore (CV storage)
              ├── Secret Manager (API keys)
-             └── Claude/OpenAI (CV composition)
+             └── Gemini/Claude/OpenAI (CV composition)
 ```
 
 ## Code Style & Patterns
@@ -68,7 +68,7 @@ All endpoints should return JSON with this structure:
 - **404 Not Found**: Resource not found (GitHub user, CV not found)
 - **429 Too Many Requests**: Rate limited (GitHub API)
 - **500 Internal Error**: Server error (logging, DB failure)
-- **503 Service Unavailable**: External service down (GitHub, OpenAI)
+- **503 Service Unavailable**: External service down (GitHub, LLM provider)
 
 ### Endpoint Patterns
 - Fetch data: `GET /api/resource/:id`
@@ -102,11 +102,12 @@ All endpoints should return JSON with this structure:
   - Backoff if 429 (rare)
   - Handle empty results gracefully (new users)
 
-### OpenAI/Claude API
-- Use official SDKs: `npm install openai` or `npm install @anthropic-ai/sdk`
-- Key parameters:
-  - Model: `gpt-4` (OpenAI) or `claude-3-5-sonnet-20241022` (Anthropic)
-  - Temperature: 0 (deterministic)
+### LLM API (Gemini, OpenAI, or Claude)
+- Gemini (recommended): `npm install @google/generative-ai` → Model: `gemini-2.0-flash`
+- OpenAI: `npm install openai` → Model: `gpt-4` or `gpt-3.5-turbo`
+- Claude: `npm install @anthropic-ai/sdk` → Model: `claude-3-5-sonnet-20241022`
+- Key parameters (all three):
+  - Temperature: 0 (deterministic CV format)
   - Max tokens: 1500
 - Prompt structure:
   - System prompt: CV writing guidelines
@@ -284,7 +285,7 @@ By end of workshop, participants should:
 - [ ] Write async/await code for parallel API calls
 - [ ] Handle API errors gracefully (404, 429, timeout)
 - [ ] Use Secret Manager for production credentials
-- [ ] Generate CVs using Claude/GPT-4
+- [ ] Generate CVs using Gemini/Claude/GPT-4
 - [ ] Store CVs in Firestore
 - [ ] Deploy Express app to Cloud Run
 - [ ] Monitor app with Cloud Logging

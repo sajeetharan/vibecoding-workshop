@@ -112,18 +112,22 @@ gcloud secrets list
 ```
 Should show `github-token` in the output
 
-### 4.2 OpenAI/Claude API Key Secret
+### 4.2 LLM API Key Secret (Claude, OpenAI, or Gemini)
 
-First, get your API key:
-- **Claude**: https://console.anthropic.com/account/keys
-- **OpenAI**: https://platform.openai.com/account/api-keys
+Choose ONE LLM provider and get your API key:
 
-Then create the secret:
+| Provider | Get API Key | Cost | Speed | Quality |
+|----------|-------------|------|-------|---------|
+| **Claude** | https://console.anthropic.com/account/keys | $1-5 per 1M tokens | Moderate | Excellent reasoning |
+| **OpenAI** | https://platform.openai.com/account/api-keys | $5-10 per 1M tokens | Fast | Excellent (GPT-4) |
+| **Gemini** | https://aistudio.google.com/app/apikeys | Free tier 60 req/min | Very fast | Good (Gemini 2.0 or Pro) |
+
+**Recommended for this workshop**: Gemini (free tier, fastest)
+
+Then create the secret (same for all three):
 
 ```bash
-gcloud secrets create openai-api-key \
-  --replication-policy="automatic" \
-  --data-file=-
+gcloud secrets create llm-api-key --replication-policy="automatic" --data-file=-
 ```
 
 Paste your API key, then Ctrl+D
@@ -132,7 +136,8 @@ Paste your API key, then Ctrl+D
 ```bash
 gcloud secrets list
 ```
-Should show both `github-token` and `openai-api-key`
+
+Should show both `github-token` and `llm-api-key`
 
 ---
 
@@ -240,14 +245,16 @@ For local testing before deploying to Cloud Run:
 cat > .env << 'EOF'
 GCP_PROJECT_ID=cv-generator-workshop
 GITHUB_TOKEN=your-github-token-here
-OPENAI_API_KEY=your-openai-key-here
+LLM_API_KEY=your-llm-api-key-here
+LLM_PROVIDER=gemini
 PORT=3000
 EOF
 ```
 
 2. Replace placeholders:
    - `your-github-token-here` → paste your GitHub token from Step 3
-   - `your-openai-key-here` → paste your Claude/OpenAI key
+   - `your-llm-api-key-here` → paste your API key from Step 4.2
+   - `LLM_PROVIDER` → use one of: `gemini`, `openai`, `claude`
 
 3. **Never commit .env to GitHub!** (add to .gitignore)
 
@@ -495,6 +502,131 @@ gcloud run services delete cv-generator
 gsutil rm -r gs://cv-generator-pdfs-*
 gcloud firestore databases delete --database=default
 ```
+
+---
+
+## Appendix A: LLM Provider Code Examples
+
+During the workshop, you'll call an LLM in Step 4 (Profile → CV Generation). Here's how to use **Gemini, OpenAI, or Claude**:
+
+### Using Gemini (Recommended - Free & Fastest)
+
+**Install SDK**:
+```bash
+npm install @google/generative-ai
+```
+
+**Code**:
+```javascript
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const client = new GoogleGenerativeAI(process.env.LLM_API_KEY);
+const model = client.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+async function generateCV(profileSignals) {
+  const prompt = `Generate a professional CV from these signals:\n${JSON.stringify(profileSignals)}`;
+  const result = await model.generateContent(prompt);
+  return result.response.text();
+}
+```
+
+**Cost**: Free tier 60 req/min, ~$0 per 1M tokens in paid tier
+
+---
+
+### Using Claude (Best Reasoning)
+
+**Install SDK**:
+```bash
+npm install @anthropic-ai/sdk
+```
+
+**Code**:
+```javascript
+const Anthropic = require("@anthropic-ai/sdk");
+
+const client = new Anthropic.default({
+  apiKey: process.env.LLM_API_KEY
+});
+
+async function generateCV(profileSignals) {
+  const message = await client.messages.create({
+    model: "claude-3-5-sonnet-20241022",
+    max_tokens: 2048,
+    messages: [{
+      role: "user",
+      content: `Generate a professional CV from these signals:\n${JSON.stringify(profileSignals)}`
+    }]
+  });
+  return message.content[0].type === "text" ? message.content[0].text : "";
+}
+```
+
+**Cost**: ~$0.003 per CV (1000 tokens)
+
+---
+
+### Using OpenAI (Balanced)
+
+**Install SDK**:
+```bash
+npm install openai
+```
+
+**Code**:
+```javascript
+const OpenAI = require("openai");
+
+const client = new OpenAI.default({
+  apiKey: process.env.LLM_API_KEY
+});
+
+async function generateCV(profileSignals) {
+  const message = await client.chat.completions.create({
+    model: "gpt-4",
+    messages: [{
+      role: "user",
+      content: `Generate a professional CV from these signals:\n${JSON.stringify(profileSignals)}`
+    }],
+    max_tokens: 2048
+  });
+  return message.choices[0].message.content;
+}
+```
+
+**Cost**: ~$0.005 per CV (1000 tokens on GPT-4)
+
+---
+
+### Reading API Key from Secret Manager (Best Practice)
+
+In Cloud Run, use Secret Manager instead of `.env`:
+
+```javascript
+const secretManager = require("@google-cloud/secret-manager");
+
+async function getApiKey(secretName) {
+  const client = new secretManager.SecretManagerServiceClient();
+  const projectId = process.env.GCP_PROJECT_ID;
+  const name = client.secretVersionPath(projectId, secretName, "latest");
+  const [version] = await client.accessSecretVersion({ name });
+  return version.payload.data.toString();
+}
+
+// Usage
+const llmApiKey = await getApiKey("llm-api-key");
+```
+
+---
+
+### Choosing Which Provider
+
+| Use Case | Provider | Reason |
+|----------|----------|--------|
+| **First time, learning** | Gemini | Free tier, fastest |
+| **Production CV quality** | Claude | Best reasoning, most natural |
+| **Cost sensitive** | OpenAI (GPT-3.5) | Cheapest option |
+| **Balancing all factors** | OpenAI (GPT-4) | Good quality + reasonable cost |
 
 ---
 
