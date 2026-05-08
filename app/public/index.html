@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destination Pulse - Sri Lanka Travel Guide</title>
+  <style>
+    :root {
+      --bg1: #f3fbf8;
+      --bg2: #e7f4ff;
+      --ink: #1f2937;
+      --brand: #0f766e;
+      --brand-2: #0369a1;
+      --card: #ffffff;
+      --line: #d1d5db;
+      --danger: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(15, 118, 110, 0.15), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(3, 105, 161, 0.13), transparent 34%),
+        linear-gradient(140deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: #334155;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 860px) {
+      .grid { grid-template-columns: 0.95fr 1.05fr; }
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid rgba(15, 118, 110, 0.25);
+      border-color: var(--brand);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    button:disabled { opacity: 0.7; cursor: wait; }
+
+    .error {
+      color: var(--danger);
+      min-height: 20px;
+      font-size: 0.9rem;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .chip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      color: #1e3a8a;
+    }
+
+    .feed {
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      border: 1px solid #dbeafe;
+      background: #f8fbff;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+
+    .mood {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .location {
+      color: #334155;
+    }
+
+    .tip {
+      margin: 8px 0 0;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <h1>🌴 Destination Pulse</h1>
+      <p class="subtitle">Share real-time travel experiences and discover hidden gems across Sri Lanka.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>✍️ Share Your Experience</h2>
+        <form id="vibeForm">
+          <label for="mood">Destination Vibe</label>
+          <input id="mood" maxlength="30" placeholder="Crowded, Peaceful, Rainy but Beautiful..." required />
+
+          <label for="location">Location</label>
+          <input id="location" maxlength="60" placeholder="e.g., Sigiriya, Ella, Kandy" required />
+
+          <label for="tip">Travel Tip</label>
+          <textarea id="tip" maxlength="200" rows="4" placeholder="What travelers should know about this spot?" required></textarea>
+
+          <div class="row">
+            <button id="submitBtn" type="submit">Share Experience</button>
+          </div>
+
+          <p class="error" id="errorText" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h2>🌍 Live Feed</h2>
+        <div class="stats" id="stats"></div>
+        <div class="feed" id="feed"></div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("vibeForm");
+    const moodInput = document.getElementById("mood");
+    const locationInput = document.getElementById("location");
+    const tipInput = document.getElementById("tip");
+    const errorText = document.getElementById("errorText");
+    const feed = document.getElementById("feed");
+    const stats = document.getElementById("stats");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function renderStats(moodCounts) {
+      const entries = Object.entries(moodCounts || {});
+      stats.innerHTML = entries.length
+        ? entries.map(([mood, count]) => `<span class="chip">${mood}: ${count}</span>`).join("")
+        : "<span class=\"chip\">No vibes yet</span>";
+    }
+
+    function renderFeed(items) {
+      feed.innerHTML = items.length
+        ? items.map((item) => {
+            const date = new Date(item.createdAt).toLocaleString();
+            return `
+              <article class="item">
+                <div class="item-top">
+                  <span class="mood">${item.mood}</span>
+                  <span class="location">${item.location}</span>
+                </div>
+                <p class="tip">${item.tip}</p>
+                <small>${date}</small>
+              </article>
+            `;
+          }).join("")
+        : "<p>No vibe updates yet. Be the first.</p>";
+    }
+
+    async function loadVibes() {
+      const res = await fetch("/api/vibes");
+      const data = await res.json();
+      renderStats(data.moodCounts);
+      renderFeed(data.items || []);
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      errorText.textContent = "";
+      submitBtn.disabled = true;
+
+      try {
+        const payload = {
+          mood: moodInput.value.trim(),
+          location: locationInput.value.trim(),
+          tip: tipInput.value.trim()
+        };
+
+        const res = await fetch("/api/vibes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || "Failed to post vibe");
+        }
+
+        form.reset();
+        await loadVibes();
+      } catch (err) {
+        errorText.textContent = err.message;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    loadVibes().catch((err) => {
+      errorText.textContent = `Unable to load vibes: ${err.message}`;
+    });
+  </script>
+</body>
+</html>
