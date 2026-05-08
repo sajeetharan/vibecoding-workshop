@@ -764,6 +764,16 @@
             <p style="margin: 0; font-size: 1.05rem;">Select code, press <span class="kbd">Ctrl+L</span>, describe what to change. Cursor edits inline with a diff preview.</p>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Chat (Ctrl+K):</strong> For strategic questions. "Why is this component re-rendering?" "How do I handle auth?"</li>
+            <li><strong>Tab Completion:</strong> Tactical, fast. You type, Cursor suggests the next lines. Press Tab to accept or Esc to reject.</li>
+            <li><strong>Edit (Ctrl+L):</strong> Best for refactoring. Highlight messy code, ask Cursor to "improve this" or "split into helpers".</li>
+            <li><strong>Live demo moment:</strong> Show all three on a simple file. 2 minutes of demo saves 10 minutes of confusion.</li>
+            <li><strong>Remember:</strong> These three moves unlock 80% of Cursor's daily power. Master them and you're unstoppable.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -790,6 +800,16 @@
         </div>
         <div class="panel" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fbbf24; margin-top: 8px;">
           <p style="font-size: 1.1rem; margin: 0;"><strong>🎯 Muscle memory note:</strong> Learn one shortcut per day. Start with <span class="kbd">Ctrl+K</span> (chat) and <span class="kbd">Ctrl+L</span> (edit).</p>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Core three shortcuts:</strong> Ctrl+K (chat), Ctrl+L (edit), Ctrl+I (inline generate).</li>
+            <li><strong>VS Code shared shortcuts:</strong> Ctrl+P (quick open), Ctrl+/ (comment), Ctrl+D (multi-select).</li>
+            <li><strong>Don't memorize everything:</strong> Focus on Ctrl+K and Ctrl+L. Others will come naturally.</li>
+            <li><strong>Tip for teams:</strong> Put shortcut cheat sheet on the wall or shared doc.</li>
+            <li><strong>First 30 minutes are slow:</strong> Tell participants this is normal. Muscle memory builds fast.</li>
+          </ul>
         </div>
       </section>
 
@@ -833,6 +853,16 @@
             <div><p style="margin: 0; font-size: 1.1rem; font-weight: 600;">Be cautious with:</p><p style="margin: 0.2em 0 0; font-size: 1.05rem; color: #334155;">Security-critical code, business logic, edge cases. Always review before accepting.</p></div>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Tab Completion demo:</strong> Start a function, type "function get", wait 1 second, gray suggestion appears.</li>
+            <li><strong>When to use:</strong> Boilerplate (loops, array methods), repeat patterns you've already typed.</li>
+            <li><strong>When NOT to use:</strong> Security code (auth, crypto), domain logic (business rules), complex algorithms.</li>
+            <li><strong>Rule of thumb:</strong> If you understand what the code does in 2 seconds, accept it. Else, reject and chat instead.</li>
+            <li><strong>Speed benefit:</strong> Experienced developers see 30-40% faster typing with tab completion.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -854,6 +884,16 @@
             <p style="font-size: 1.08rem; margin: 0;"><strong>💡 Pro tip:</strong> Keep related files open in tabs. Cursor uses them for better context. Close unrelated tabs to avoid noise.</p>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Context is power:</strong> Cursor reads your current files to avoid hallucinating wrong API names or patterns.</li>
+            <li><strong>What Cursor sees:</strong> All open tabs, file structure, imports, even comments that explain your architecture.</li>
+            <li><strong>What Cursor can't see:</strong> Secret keys, production databases, your mind.</li>
+            <li><strong>Best practice:</strong> Open only files related to your task. If building auth, keep auth files open. Close unrelated projects.</li>
+            <li><strong>Real-world impact:</strong> Good context = Cursor suggests code that actually fits your codebase. Bad context = suggestions you can't use.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -869,6 +909,16 @@
 Current files: src/App.js, src/components/Header.js.
 Success looks like: button appears in header, clicking it clears auth token and redirects to login.
 What should I start with?</pre>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Template structure:</strong> I want [task] + Context + Success = Gold standard prompt.</li>
+            <li><strong>Why it works:</strong> AI knows what to build (task), where it fits (context), and when it's done (success criteria).</li>
+            <li><strong>Example breakdown:</strong> Not just "add logout" but "add logout button to header that clears auth and redirects".</li>
+            <li><strong>Follow-up dance:</strong> Cursor responds, you can ask "Why did you use useContext here?" or "How do I test this?"</li>
+            <li><strong>Workshop takeaway:</strong> This template works for ANY project, ANY language. Commit it to memory.</li>
+          </ul>
         </div>
       </section>
 
@@ -889,6 +939,16 @@ What should I start with?</pre>
         </ul>
         <div class="panel" style="background: linear-gradient(135deg, #fee2e2, #fecaca); margin-top: 10px;">
           <p style="font-size: 1.08rem; margin: 0;"><strong>Note:</strong> Free tier has usage limits. If you hit limits, switch to a different model or wait 24 hours.</p>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Settings path:</strong> Cursor menu → Settings (or Ctrl+,). Same as VS Code.</li>
+            <li><strong>Model choice for this workshop:</strong> Claude Sonnet (best accuracy) or GPT-4 (fastest).</li>
+            <li><strong>Why model matters:</strong> Some models are better at reasoning (Sonnet), others at speed (GPT-4).</li>
+            <li><strong>Free tier gotcha:</strong> You get limited requests per day. If you hit the limit, switch models (they have separate quotas).</li>
+            <li><strong>Pro tip:</strong> Have everyone screenshot their settings. Standardized setup = fewer support questions.</li>
+          </ul>
         </div>
       </section>
 
@@ -1008,6 +1068,16 @@ What should I start with?</pre>
             <p style="margin: 0; font-size: 1.05rem;"><strong>Sharp:</strong> "Build POST /api/reports only. Validate input. Return error JSON. Time box: 20 mins."</p>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Scoping mindset:</strong> Start small. Deliver one piece, then build up.</li>
+            <li><strong>Why vague fails:</strong> "Make it scalable" means different things. AI guesses and you get 50MB of code.</li>
+            <li><strong>Why sharp wins:</strong> AI knows exactly what to build, when it's done, and how to validate.</li>
+            <li><strong>Time boxing is power:</strong> "20 mins" tells AI: stop at MVP, don't gold-plate.</li>
+            <li><strong>Use this pattern:</strong> Every single prompt you write today, scope it first.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1031,6 +1101,16 @@ What should I start with?</pre>
             <p style="margin: 0; font-size: 1.12rem;"><strong>Fast debugging:</strong> Broke something? Revert one diff, not 10</p>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Surgical principle:</strong> One feature, one file, minimal change = low risk of side effects.</li>
+            <li><strong>Why it matters:</strong> If review takes 30 seconds instead of 5 minutes, you unblock teammates faster.</li>
+            <li><strong>Debugging benefit:</strong> If something breaks, you know exactly which change caused it. One revert fixes it.</li>
+            <li><strong>Prompt phrase:</strong> Always include "Do not touch unrelated files" or "Keep changes minimal".</li>
+            <li><strong>Real-world impact:</strong> Big rewrites fail code review. Small, focused PRs ship. Train your prompts accordingly.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1050,6 +1130,16 @@ What should I start with?</pre>
           <div class="panel" style="background: #f8fafc; border: 2px solid #eab308; margin: 0;">
             <p style="margin: 0; font-size: 1.08rem;"><strong>Minor (🟡):</strong> Typo, inconsistent naming, missing comment</p>
           </div>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Review mindset:</strong> AI often generates working code but not SAFE code. This pattern fixes that.</li>
+            <li><strong>Ask AI to play security auditor:</strong> "Review as a senior engineer" triggers better analysis.</li>
+            <li><strong>Severity framework:</strong> Critical (production down), Major (silent failures), Minor (nice-to-fix).</li>
+            <li><strong>Follow-up prompt:</strong> "Fix the critical and major issues. Explain each one."</li>
+            <li><strong>Team practice:</strong> Have teams code-review each other's AI output using this pattern.</li>
+          </ul>
         </div>
       </section>
 
@@ -1132,6 +1222,16 @@ What should I start with?</pre>
             <li><strong>UI (browser)</strong> = 🗺️ Public map where citizens submit and view reports</li>
             <li><strong>Backend (Express)</strong> = ✅ Verification desk validating report quality</li>
             <li><strong>Google Cloud Run</strong> = 🌐 Always-on public access point</li>
+          </ul>
+        </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Architecture walkthrough:</strong> Show the three-box diagram: UI → API → Cloud Run.</li>
+            <li><strong>Data flow:</strong> User enters report in browser → sends to Express backend → validated and stored → returned to other users.</li>
+            <li><strong>Emergency board analogy:</strong> Citizens report fuel status (like emergency alerts). Verification desk checks quality. Public board updates.</li>
+            <li><strong>Why three tiers:</strong> Separation of concerns. UI handles display. Backend handles business logic. Cloud Run handles infrastructure.</li>
+            <li><strong>Deploy moment:</strong> Today you deploy this exact architecture. By end of day, it's live on the internet.</li>
           </ul>
         </div>
       </section>
@@ -1254,6 +1354,17 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>UI reflects newly posted station data instantly</li>
           <li>At least one report is flagged as suspicious by AI check</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Verification checklist:</strong> These are your "smoke tests" - quick checks that the app works.</li>
+            <li><strong>First check:</strong> Does the URL even load? If not, check gcloud logs.</li>
+            <li><strong>API health:</strong> /api/health endpoint returns {"status":"ok"} or similar. Proves backend is alive.</li>
+            <li><strong>Create reports:</strong> This tests the full flow: UI → API → data store → response back to UI.</li>
+            <li><strong>AI check:</strong> If a report gets flagged as "suspicious", it means the validation logic is working. High five!</li>
+            <li><strong>Timing:</strong> If everything works, this takes 2 minutes. Celebrate the win.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1267,6 +1378,17 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>Validation errors from malformed payload</li>
         </ul>
         <p class="lead">Recovery habit: read exact error text first, then ask Cursor with context.</p>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Wrong gcloud project:</strong> Run `gcloud config list` to check. If wrong, run `gcloud config set project YOUR_ID`.</li>
+            <li><strong>APIs not enabled:</strong> Error says "API not enabled". Copy-paste the API name into the command.</li>
+            <li><strong>Quota issues:</strong> Rare, but region-specific. Try a different region (us-east1 if us-central1 is full).</li>
+            <li><strong>Validation errors:</strong> Send malformed JSON (missing field, wrong type), you get HTTP 400. Read error message carefully.</li>
+            <li><strong>Meta-skill:</strong> Copy exact error → Ask Cursor → 90% of the time, problem solved. This is the real skill.</li>
+            <li><strong>Stress relief:</strong> Say this: "Errors are data. Read them. They're your friend."</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1291,6 +1413,16 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
             <p style="margin: 0; font-size: 1.15rem;"><strong>What test proves it works?</strong> Run it by hand first.</p>
           </div>
         </div>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Behavior correctness:</strong> Don't trust AI output blindly. Test manually first. Catch bugs before they ship.</li>
+            <li><strong>Simplicity:</strong> If Cursor generated 50 lines and 30 are dead code, delete them. Less code = fewer bugs.</li>
+            <li><strong>Edge cases:</strong> AI often misses boundaries. "What if the array is empty?" "What if the user clicks twice?"</li>
+            <li><strong>Testability:</strong> Can you prove this works? Write a quick test or manual check. If you can't prove it, don't ship it.</li>
+            <li><strong>Meta message:</strong> This checkpoint is YOUR responsibility. AI can be lazy. You stay sharp.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1302,6 +1434,16 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>Explain decisions in plain language</li>
           <li>Success: team can explain their code path confidently</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Beginner focus:</strong> Your goal is to learn the PATTERN, not optimize the code.</li>
+            <li><strong>Prompt discipline:</strong> Spend 2 minutes writing a clear prompt. Saves 10 minutes of debugging.</li>
+            <li><strong>Shipping mindset:</strong> Get it working first, optimize later. Done is better than perfect.</li>
+            <li><strong>Explanation test:</strong> If you can't explain the code in 30 seconds, you don't understand it. Ask Cursor to clarify.</li>
+            <li><strong>Win condition:</strong> You deployed code you wrote and understand. Everything else is bonus.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1314,6 +1456,17 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>Include cost, performance, and security awareness</li>
           <li>Success: decisions justified beyond AI suggestions</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Advanced focus:</strong> You're learning to USE AI wisely, not just generate code.</li>
+            <li><strong>Trade-offs matter:</strong> Why Firestore over SQL? Why Cloud Run over Kubernetes? Document your reasoning.</li>
+            <li><strong>Architecture thinking:</strong> Ask: "How would this scale to 100K users?" "What's the failure mode if X goes down?"</li>
+            <li><strong>Cost awareness:</strong> Estimate monthly cost. Cloud Run charges per request + memory. Firestore per read/write. Know the numbers.</li>
+            <li><strong>Security/Compliance:</strong> "Are we storing PII? What's our compliance requirement? Does the solution meet it?"</li>
+            <li><strong>Win condition:</strong> Your team can justify every architectural decision. AI was helpful, but YOU are the engineer.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1326,6 +1479,17 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>Add filters by mood and location</li>
           <li>Add simple analytics dashboard</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Stretch goals:</strong> If your team finishes early, these are next steps (not required).</li>
+            <li><strong>Firestore:</strong> Real database instead of in-memory. Persists data across deploys.</li>
+            <li><strong>Moderation:</strong> Manual approval workflow before reports go live. Reduces spam.</li>
+            <li><strong>Filtering:</strong> Users can search by location or fuel type. Reduces noise in feed.</li>
+            <li><strong>Analytics:</strong> Simple dashboard: "How many reports today? Most popular location?"</li>
+            <li><strong>Framing:</strong> Say: "You'll have ideas. Write them down. Post-workshop, you can ship them."</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1338,6 +1502,16 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>workshop/cursor-prompt-playbook.md</li>
           <li>deploy/gcp-cloud-run.md</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Post-workshop:</strong> Everything in the repo. Teams can refer to it weeks later.</li>
+            <li><strong>Handbook:</strong> Detailed technical walkthrough. Answer sheet for "How did we build this?"</li>
+            <li><strong>Prompt playbook:</strong> Copy-paste ready prompts. "When stuck, use prompt #5."</li>
+            <li><strong>Deployment guide:</strong> Step-by-step Cloud Run walkthrough. Handles edge cases.</li>
+            <li><strong>Engagement hack:</strong> Give everyone the GitHub link in QR code. Bookmark it NOW.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="slide">
@@ -1350,6 +1524,17 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <li>Share your 3 best prompts</li>
           <li>Document one engineering decision you owned</li>
         </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>Celebration moment:</strong> Everyone who deployed has won. Call it out publicly.</li>
+            <li><strong>Publish URL:</strong> Create a shared doc or Slack thread. Celebrate deployed apps.</li>
+            <li><strong>Best prompts:</strong> Learning from each other. "What prompt saved you the most time?"</li>
+            <li><strong>Decision log:</strong> "I chose Express because it's lightweight" - this is YOUR voice, not AI's.</li>
+            <li><strong>Closing line:</strong> "You shipped code today using AI as a tool. That's the win. Keep building."</li>
+            <li><strong>Call to action:</strong> Encourage participants to: share on LinkedIn, continue on the project, bring feedback.</li>
+          </ul>
+        </div>
       </section>
     </main>
 
