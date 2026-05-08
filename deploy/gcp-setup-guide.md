@@ -98,13 +98,23 @@ Store your API keys securely:
 
 ### 4.1 GitHub Token Secret
 
+**Option A** (Single-line - copy & paste your token):
 ```bash
-gcloud secrets create github-token \
-  --replication-policy="automatic" \
-  --data-file=-
+echo "PASTE-YOUR-GITHUB-TOKEN-HERE" | gcloud secrets create github-token --replication-policy="automatic" --data-file=-
 ```
 
-When prompted, paste your GitHub token (from Step 3), then press Enter, then Ctrl+D
+Replace `PASTE-YOUR-GITHUB-TOKEN-HERE` with your actual token from Step 3.
+
+**Option B** (Interactive prompt - clearer):
+```bash
+# This command will prompt you to enter your token securely (won't show on screen)
+gcloud secrets create github-token --replication-policy="automatic" --data-file=-
+# After running: paste your token + press Enter + press Ctrl+D (Mac/Linux) or Ctrl+Z+Enter (Windows)
+```
+
+**If Option B seems stuck**: It's waiting for your input! 
+- **Mac/Linux**: Paste token → press Enter → press Ctrl+D
+- **Windows PowerShell**: Paste token → press Enter → press Ctrl+Z → press Enter
 
 **Verify**: 
 ```bash
@@ -124,13 +134,22 @@ Choose ONE LLM provider and get your API key:
 
 **Recommended for this workshop**: Gemini (free tier, fastest)
 
-Then create the secret (same for all three):
-
+**Option A** (Single-line - copy & paste your key):
 ```bash
-gcloud secrets create llm-api-key --replication-policy="automatic" --data-file=-
+echo "PASTE-YOUR-API-KEY-HERE" | gcloud secrets create llm-api-key --replication-policy="automatic" --data-file=-
 ```
 
-Paste your API key, then Ctrl+D
+Replace `PASTE-YOUR-API-KEY-HERE` with your actual API key.
+
+**Option B** (Interactive - clearer):
+```bash
+gcloud secrets create llm-api-key --replication-policy="automatic" --data-file=-
+# After running: paste your API key + press Enter + press Ctrl+D (Mac/Linux) or Ctrl+Z+Enter (Windows)
+```
+
+**If it seems stuck**: It's waiting for input!
+- **Mac/Linux**: Paste key → press Enter → press Ctrl+D
+- **Windows PowerShell**: Paste key → press Enter → press Ctrl+Z → press Enter
 
 **Verify**:
 ```bash
