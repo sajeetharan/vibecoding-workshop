@@ -1,14 +1,14 @@
-# Vibe Coding Workshop: Cursor + Google Cloud Run
+# Vibe Coding Workshop: AI Powered CV Generator
 
-A practical workshop for undergraduate and graduate students to build an interesting web app using AI-assisted development in Cursor, then deploy it to Google Cloud using Cloud Run.
+A practical workshop for undergraduate and graduate students to build an AI Powered CV Generator using Cursor. Participants provide GitHub and Stack Overflow URLs, extract profile signals, and generate polished CV content.
 
 ## Workshop Goal
 By the end of this workshop, participants will:
 - Use Cursor to plan, scaffold, and improve an app with high-quality prompts.
-- Build a small full-stack app called **Campus Vibe Board**.
+- Build a small full-stack app called **AI Powered CV Generator**.
 - Collaborate in teams and iterate quickly.
-- Deploy the app to Google Cloud Run.
-- Share a public URL and reflect on engineering trade-offs.
+- Deploy the app and share a public URL.
+- Reflect on engineering trade-offs across data quality, prompt design, and output structure.
 
 ## Audience
 - Undergraduates: basic programming knowledge.
@@ -31,13 +31,13 @@ By the end of this workshop, participants will:
 3. Open http://localhost:8080
 4. Follow `workshop/participant-handbook.md` for the lab journey.
 
-## Fastest Deploy (Cloud Run Source Deploy)
+## Fastest Deploy
 From workspace root:
 
 ```bash
 gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
-gcloud run deploy campus-vibe-board --source app --region us-central1 --allow-unauthenticated
+gcloud run deploy ai-cv-generator --source app --region us-central1 --allow-unauthenticated
 ```
 
 ## Suggested Duration

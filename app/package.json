@@ -1,8 +1,8 @@
 {
-  "name": "campus-vibe-board",
+  "name": "ai-cv-generator-workshop",
   "version": "1.0.0",
   "private": true,
-  "description": "Workshop app for Cursor vibe coding + GCP Cloud Run",
+  "description": "Workshop app for AI Powered CV Generator using GitHub and Stack Overflow profile signals",
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",

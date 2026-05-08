@@ -1,7 +1,7 @@
 # Workshop Agenda
 
 ## Title
-Vibe Coding with Cursor: From Idea to Cloud in One Session
+Vibe Coding with Cursor: Build an AI Powered CV Generator
 
 ## Duration
 4 hours (can be compressed to 3 hours)
@@ -10,15 +10,15 @@ Vibe Coding with Cursor: From Idea to Cloud in One Session
 - Turn fuzzy ideas into structured build plans.
 - Use Cursor prompts to generate and refine production-minded code.
 - Implement an app with API + frontend.
-- Deploy to Google Cloud Run and verify health.
+- Generate structured CV output from GitHub and Stack Overflow URLs.
 
 ## Timeline
 1. 00:00-00:20 - Kickoff: What is vibe coding, where it helps, where it fails.
 2. 00:20-00:45 - Prompt patterns in Cursor (scaffold, refine, debug, test, deploy).
-3. 00:45-01:45 - Lab Part 1: Build Campus Vibe Board core features.
+3. 00:45-01:45 - Lab Part 1: Build CV generator core features.
 4. 01:45-02:00 - Break.
 5. 02:00-02:45 - Lab Part 2: polish UX, add lightweight validations.
-6. 02:45-03:30 - Deploy to Cloud Run and publish URLs.
+6. 02:45-03:30 - Deploy app, validate generation flow, and publish URLs.
 7. 03:30-04:00 - Demo day + reflection + next steps.
 
 ## Track Variants
@@ -27,7 +27,7 @@ Vibe Coding with Cursor: From Idea to Cloud in One Session
   - Keep architecture simple and visible.
 - Graduate track:
   - Add optional enhancements:
-    - persistent data store (Firestore),
+    - persistent CV history store,
     - structured logging,
     - performance and cost discussion,
     - security hardening.

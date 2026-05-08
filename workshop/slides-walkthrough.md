@@ -8,7 +8,7 @@ Goal:
 
 Say:
 - "This workshop is about shipping software with AI support, not outsourcing thinking."
-- "By the end, everyone has a public Cloud Run URL."
+- "By the end, everyone can generate a CV from GitHub and Stack Overflow URLs."
 
 Ask:
 - "Who has used Cursor before?"
@@ -32,7 +32,7 @@ Checkpoint at 20 min:
 - app runs locally.
 
 Checkpoint at 40 min:
-- POST and GET flow both working.
+- URL input and CV generation flow both working.
 
 ## 85-105 min: Break + troubleshooting window
 Goal:
@@ -50,10 +50,10 @@ Prompt suggestion:
 
 ## 145-180 min: Slides 14-16
 Goal:
-- Deploy and validate Cloud Run service.
+- Deploy and validate CV generation service.
 
 Checkpoint:
-- every team has a URL and working `/api/health`.
+- every team has a URL and working `/api/generate-cv` output.
 
 ## 180-210 min: Slides 17-22
 Goal:

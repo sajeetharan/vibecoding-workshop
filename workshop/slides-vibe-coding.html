@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fuel Finder Live: AI Crisis Map Workshop</title>
+  <title>AI Powered CV Generator: Vibe Coding Workshop</title>
   <style>
     :root {
       --bg: #0a0e27;
@@ -67,60 +67,40 @@
       inset: 0;
       padding: clamp(18px, 2.4vw, 30px);
       display: none;
+      flex-direction: column;
       gap: 8px;
       border-left: 8px solid rgba(200, 57, 255, 0.6);
-      background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="8" fill="rgba(0,217,255,0.08)"/></pattern></defs><rect width="400" height="400" fill="rgba(21,27,47,0.96)"/><rect width="400" height="400" fill="url(%23dots)"/><rect width="400" height="400" fill="linear-gradient(145deg, rgba(26,31,58,0.05), rgba(15,23,40,0.03))"/></svg>'),
-        linear-gradient(145deg, rgba(21, 27, 47, 0.96), rgba(15, 23, 40, 0.92));
-      background-size: cover, cover;
-      background-attachment: fixed, fixed;
+      background: linear-gradient(145deg, rgba(21, 27, 47, 0.96), rgba(15, 23, 40, 0.92));
       overflow: auto;
     }
 
     .slide.active {
       display: flex;
-      flex-direction: column;
-      animation: fade 220ms ease-in;
+      animation: fade 180ms ease-out;
     }
 
     .slide:nth-of-type(4n + 1) {
       border-left-color: rgba(200, 57, 255, 0.8);
-      background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="8" fill="rgba(200,57,255,0.08)"/></pattern></defs><rect width="400" height="400" fill="rgba(25,20,40,0.97)"/><rect width="400" height="400" fill="url(%23dots)"/></svg>'),
-        linear-gradient(145deg, rgba(30, 25, 50, 0.96), rgba(20, 15, 35, 0.92));
-      background-size: cover, cover;
-      background-attachment: fixed, fixed;
+      background: linear-gradient(145deg, rgba(30, 25, 50, 0.96), rgba(20, 15, 35, 0.92));
     }
 
     .slide:nth-of-type(4n + 2) {
       border-left-color: rgba(0, 217, 255, 0.8);
-      background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><pattern id="grid" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0,217,255,0.06)" stroke-width="1"/></pattern></defs><rect width="400" height="400" fill="rgba(15,30,45,0.98)"/><rect width="400" height="400" fill="url(%23grid)"/></svg>'),
-        linear-gradient(145deg, rgba(20, 40, 60, 0.96), rgba(10, 25, 40, 0.92));
-      background-size: cover, cover;
-      background-attachment: fixed, fixed;
+      background: linear-gradient(145deg, rgba(20, 40, 60, 0.96), rgba(10, 25, 40, 0.92));
     }
 
     .slide:nth-of-type(4n + 3) {
       border-left-color: rgba(0, 255, 136, 0.8);
-      background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><pattern id="waves" x="0" y="0" width="80" height="40" patternUnits="userSpaceOnUse"><path d="M0,20 Q20,10 40,20 T80,20" stroke="rgba(0,255,136,0.08)" stroke-width="2" fill="none"/></pattern></defs><rect width="400" height="400" fill="rgba(15,35,25,0.97)"/><rect width="400" height="400" fill="url(%23waves)"/></svg>'),
-        linear-gradient(145deg, rgba(20, 45, 35, 0.96), rgba(10, 30, 20, 0.92));
-      background-size: cover, cover;
-      background-attachment: fixed, fixed;
+      background: linear-gradient(145deg, rgba(20, 45, 35, 0.96), rgba(10, 30, 20, 0.92));
     }
 
     .slide:nth-of-type(4n) {
       border-left-color: rgba(255, 200, 0, 0.8);
-      background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><pattern id="hex" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><polygon points="30,0 60,15 60,45 30,60 0,45 0,15" fill="none" stroke="rgba(255,200,0,0.08)" stroke-width="1"/></pattern></defs><rect width="400" height="400" fill="rgba(40,35,15,0.98)"/><rect width="400" height="400" fill="url(%23hex)"/></svg>'),
-        linear-gradient(145deg, rgba(50, 45, 20, 0.96), rgba(35, 30, 10, 0.92));
-      background-size: cover, cover;
-      background-attachment: fixed, fixed;
+      background: linear-gradient(145deg, rgba(50, 45, 20, 0.96), rgba(35, 30, 10, 0.92));
     }
 
     @keyframes fade {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -492,7 +472,7 @@
           <div class="meta">
             <span class="chip">Audience: Undergraduate + Graduate</span>
             <span class="chip">Duration: 2 Hours</span>
-            <span class="chip">Build: Fuel and Gas Availability Map for Sri Lanka</span>
+            <span class="chip">Build: AI Powered CV Generator (GitHub + Stack Overflow)</span>
             <span class="chip">Google Developer Expert</span>
           </div>
         </header>
@@ -542,7 +522,7 @@
             <ol style="margin: 10px 0; padding-left: 20px;">
               <li>Build core app & features</li>
               <li>Quality improvements</li>
-              <li>Deploy to Cloud Run</li>
+              <li>Deploy and share CV generator app</li>
               <li>Q&A and wrap-up</li>
             </ol>
           </div>
@@ -566,27 +546,27 @@
       <section class="slide">
         <header>
           <h1>Story: Why This App Must Exist</h1>
-          <p class="lead">From rumor chaos to trusted, live public intelligence.</p>
+          <p class="lead">From manual CV writing to evidence-driven professional profiles.</p>
         </header>
         <div class="two">
           <div class="panel bad">
             <h2>Before</h2>
             <ul>
-              <li>WhatsApp forwards and conflicting updates</li>
-              <li>Families waste fuel driving to empty stations</li>
-              <li>Students lose hours in unpredictable queues</li>
+              <li>Developers manually rewrite the same CV for every role</li>
+              <li>GitHub and Stack Overflow achievements are not reflected properly</li>
+              <li>Students struggle to present projects with measurable impact</li>
             </ul>
           </div>
           <div class="panel good">
-            <h2>After Fuel Finder Live</h2>
+            <h2>After AI Powered CV Generator</h2>
             <ul>
-              <li>Live map of verified station and gas status</li>
-              <li>Queue and waiting-time transparency</li>
-              <li>AI prediction: best time window to visit</li>
+              <li>Paste GitHub and Stack Overflow URLs to auto-collect profile signals</li>
+              <li>Generate role-specific CV sections with quantified project highlights</li>
+              <li>Export a polished CV in markdown/PDF-ready format</li>
             </ul>
           </div>
         </div>
-        <p class="lead"><strong>Impact:</strong> Save time, reduce panic, and improve trust with shared data.</p>
+        <p class="lead"><strong>Impact:</strong> Save time, improve quality, and increase interview readiness.</p>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
@@ -645,7 +625,7 @@
           <li>Turn fuzzy ideas into scoped implementation plans</li>
           <li>Use Cursor prompts for build, review, and debugging</li>
           <li>Ship a full-stack app</li>
-          <li>Deploy and validate in Google Cloud Run</li>
+          <li>Generate and validate a production-ready CV output</li>
         </ul>
         <div class="notes">
           <h3>Speaker Notes</h3>
@@ -670,7 +650,7 @@
           <li><strong style="color: #00ff88;">→ HANDS-ON BUILD TIME ←</strong></li>
           <li>Lab: Build core app with Cursor</li>
           <li>Lab: Improve quality and debug</li>
-          <li>Deploy to Google Cloud Run</li>
+          <li>Deploy the AI CV Generator</li>
           <li>Q&A and wrap-up</li>
         </ol>
         <div class="notes">
@@ -898,26 +878,50 @@
 
       <section class="slide">
         <header>
-          <h1>First Cursor Prompt: A Template</h1>
+          <h1>First Cursor Prompt for CV Generator</h1>
         </header>
         <div class="panel" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd);">
-          <p style="font-size: 1.1rem; margin: 0; line-height: 1.5;"><strong>📋 Template:</strong><br><em>"I want to [specific task]. Current files: [list relevant files]. Success looks like [acceptance criteria]. What should I start with?"</em></p>
+          <p style="font-size: 1.1rem; margin: 0; line-height: 1.5;"><strong>📋 Example:</strong><br><em>"Create an Express endpoint POST /api/generate-cv that takes a GitHub username, fetches their public repos using GitHub API (pagination), extracts languages and project count, and returns a JSON summary. Store the GitHub token in process.env.GITHUB_TOKEN."</em></p>
         </div>
         <div style="margin-top: 10px; display: grid; gap: 8px;">
-          <p style="margin: 0; font-size: 1.15rem; font-weight: 600;">Example:</p>
-          <pre>I want to add a logout button to my React app.
-Current files: src/App.js, src/components/Header.js.
-Success looks like: button appears in header, clicking it clears auth token and redirects to login.
-What should I start with?</pre>
+          <p style="margin: 0; font-size: 1.15rem; font-weight: 600;">Breaking it down:</p>
+          <pre>Specific task: POST /api/generate-cv
+Input: GitHub username
+External API: GitHub REST API (with pagination)
+Data extraction: languages, project count
+Output: JSON summary
+Security: Use env var for token</pre>
         </div>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Template structure:</strong> I want [task] + Context + Success = Gold standard prompt.</li>
-            <li><strong>Why it works:</strong> AI knows what to build (task), where it fits (context), and when it's done (success criteria).</li>
-            <li><strong>Example breakdown:</strong> Not just "add logout" but "add logout button to header that clears auth and redirects".</li>
-            <li><strong>Follow-up dance:</strong> Cursor responds, you can ask "Why did you use useContext here?" or "How do I test this?"</li>
-            <li><strong>Workshop takeaway:</strong> This template works for ANY project, ANY language. Commit it to memory.</li>
+            <li><strong>Good prompt structure:</strong> endpoint + input + external API + data extraction + output + security consideration.</li>
+            <li><strong>Why it works:</strong> AI knows the scope (one endpoint), dependencies (GitHub API), and security pattern (env vars).</li>
+            <li><strong>Follow-ups after Cursor responds:</strong> "Why paginate? What happens if user has 500 repos?", "How do I handle rate limiting?", "Should I cache this?"</li>
+            <li><strong>Workshop takeaway:</strong> Specific external API context + security + scope = AI generates production-ready code in one shot.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide">
+        <header>
+          <h1>Cursor + MCP for CV Generator</h1>
+        </header>
+        <ul>
+          <li><strong>Without MCP:</strong> Use Cursor Chat to write GitHub/Stack Overflow API fetch code</li>
+          <li><strong>With MCP (optional):</strong> Enable GitHub MCP server → Cursor queries repos directly in chat</li>
+          <li><span class="kbd">Ctrl+K</span> → "@GitHub: List repos for user username, sort by stars"</li>
+          <li><span class="kbd">Ctrl+K</span> → "@StackOverflow: Get this user's top answers and badges"</li>
+          <li>MCP reduces HTTP boilerplate by 70% — Cursor handles the API calls for you</li>
+        </ul>
+        <div class="notes">
+          <h3>Speaker Notes</h3>
+          <ul>
+            <li><strong>MCP optional:</strong> Workshop works fine without it, but MCP accelerates API integration.</li>
+            <li><strong>Setup:</strong> Requires VS Code MCP extension + configuring GitHub MCP server in Cursor settings.</li>
+            <li><strong>Benefit:</strong> Instead of "write code to fetch GitHub repos", you ask "@GitHub: get user repos" and Cursor returns actual data in chat.</li>
+            <li><strong>Trade-off:</strong> MCP requires more setup upfront but saves 15-20 minutes of scaffolding per team.</li>
+            <li><strong>For your workshop:</strong> Mention MCP exists, but keep it optional. Advanced teams can try it; beginners can write HTTP requests manually.</li>
           </ul>
         </div>
       </section>
@@ -1065,7 +1069,7 @@ What should I start with?</pre>
         <div style="display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start;">
           <span style="font-size: 1.8rem;">✅</span>
           <div class="panel" style="background: #dcfce7; border-color: #86efac; margin: 0;">
-            <p style="margin: 0; font-size: 1.05rem;"><strong>Sharp:</strong> "Build POST /api/reports only. Validate input. Return error JSON. Time box: 20 mins."</p>
+            <p style="margin: 0; font-size: 1.05rem;"><strong>Sharp:</strong> "Build POST /api/generate-cv only. Accept GitHub URL and Stack Overflow URL, validate both, return structured CV JSON. Time box: 20 mins."</p>
           </div>
         </div>
         <div class="notes">
@@ -1179,9 +1183,13 @@ What should I start with?</pre>
           </ul>
         </div>
       </section>
+
+      <section class="slide">
+        <header>
+          <h1>AI CV Generator Architecture</h1>
         </header>
         <div class="diagram">
-          <svg viewBox="0 0 900 350" aria-label="Fuel Finder Live architecture diagram">
+          <svg viewBox="0 0 900 350" aria-label="AI CV Generator architecture diagram">
             <defs>
               <linearGradient id="boxBlue" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#dbeafe" />
@@ -1203,9 +1211,9 @@ What should I start with?</pre>
             <rect x="340" y="70" width="230" height="190" rx="14" fill="url(#boxGreen)" stroke="#0f766e" />
             <text x="455" y="112" text-anchor="middle" font-size="24" fill="#14532d">Express API</text>
             <text x="455" y="142" text-anchor="middle" font-size="16" fill="#14532d">GET /api/health</text>
-            <text x="455" y="166" text-anchor="middle" font-size="16" fill="#14532d">GET /api/reports</text>
-            <text x="455" y="190" text-anchor="middle" font-size="16" fill="#14532d">POST /api/reports</text>
-            <text x="455" y="218" text-anchor="middle" font-size="16" fill="#14532d">AI validation + data store</text>
+            <text x="455" y="166" text-anchor="middle" font-size="16" fill="#14532d">POST /api/profile-signals</text>
+            <text x="455" y="190" text-anchor="middle" font-size="16" fill="#14532d">POST /api/generate-cv</text>
+            <text x="455" y="218" text-anchor="middle" font-size="16" fill="#14532d">AI summarization + template engine</text>
 
             <rect x="660" y="110" width="210" height="120" rx="14" fill="url(#boxBlue)" stroke="#1d4ed8" />
             <text x="765" y="150" text-anchor="middle" font-size="22" fill="#1e3a8a">Google Cloud Run</text>
@@ -1217,20 +1225,22 @@ What should I start with?</pre>
           </svg>
         </div>
         <div class="panel" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fbbf24;">
-          <p style="font-size: 1.12rem; margin: 0; line-height: 1.4;"><strong>🚨 Analogy:</strong> Think of this like a live emergency board:</p>
+          <p style="font-size: 1.12rem; margin: 0; line-height: 1.4;"><strong>🚨 GCP Architecture:</strong></p>
           <ul style="margin: 0.3em 0 0 0; padding-left: 1.15em;">
-            <li><strong>UI (browser)</strong> = 🗺️ Public map where citizens submit and view reports</li>
-            <li><strong>Backend (Express)</strong> = ✅ Verification desk validating report quality</li>
-            <li><strong>Google Cloud Run</strong> = 🌐 Always-on public access point</li>
+            <li><strong>UI (browser)</strong> → Resume composer where users paste GitHub and Stack Overflow URLs</li>
+            <li><strong>Backend (Express on Cloud Run)</strong> → Fetches signals via GitHub API + Stack Overflow API → AI composition</li>
+            <li><strong>Firestore</strong> → Stores generated CVs and user profiles</li>
+            <li><strong>Cloud Storage</strong> → Exports as PDF/DOCX files</li>
+            <li><strong>Secret Manager</strong> → Securely stores GitHub and Stack Overflow API keys</li>
           </ul>
         </div>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Architecture walkthrough:</strong> Show the three-box diagram: UI → API → Cloud Run.</li>
-            <li><strong>Data flow:</strong> User enters report in browser → sends to Express backend → validated and stored → returned to other users.</li>
-            <li><strong>Emergency board analogy:</strong> Citizens report fuel status (like emergency alerts). Verification desk checks quality. Public board updates.</li>
-            <li><strong>Why three tiers:</strong> Separation of concerns. UI handles display. Backend handles business logic. Cloud Run handles infrastructure.</li>
+            <li><strong>Architecture walkthrough:</strong> Show the three-box diagram: UI → API → deployed service.</li>
+            <li><strong>Data flow:</strong> User enters GitHub and Stack Overflow URLs → backend fetches signals → AI composes CV output.</li>
+            <li><strong>Career assistant analogy:</strong> The app turns public profile data into a clear, recruiter-ready narrative.</li>
+            <li><strong>Why three tiers:</strong> UI handles input/output, backend handles orchestration, deployment handles reliability.</li>
             <li><strong>Deploy moment:</strong> Today you deploy this exact architecture. By end of day, it's live on the internet.</li>
           </ul>
         </div>
@@ -1238,64 +1248,65 @@ What should I start with?</pre>
 
       <section class="slide">
         <header>
-          <h1>Lab Part 1: Build Core</h1>
+          <h1>Lab Part 1: Build Core with Cursor</h1>
         </header>
         <ul>
-          <li>Run app locally</li>
-          <li>Inspect API and UI flow</li>
-          <li>Add one new field or validation rule</li>
-          <li>Confirm feed updates correctly</li>
+          <li>Use Cursor Chat (<span class="kbd">Ctrl+K</span>) to scaffold Express API endpoints</li>
+          <li>Implement GitHub API integration (fetch user repos, stars, languages)</li>
+          <li>Implement Stack Overflow API integration (fetch user reputation, badges)</li>
+          <li>Test CV generation locally</li>
         </ul>
-        <p class="lead"><strong>Definition of done:</strong> Team can submit and view fuel/gas reports locally.</p>
+        <p class="lead"><strong>Definition of done:</strong> Team can pass GitHub/Stack Overflow URLs and receive a formatted CV.</p>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>This is the hands-on phase.</strong> Teams work independently now; you circulate.</li>
-            <li><strong>What they'll do:</strong> Clone repo, install deps, run server, test endpoints with Cursor help.</li>
-            <li><strong>Common issues:</strong> npm install takes too long (use npm ci), port conflicts (use port 3001), CORS errors (add middleware).</li>
-            <li><strong>Success metric:</strong> Each team can POST a report and see it in the GET response.</li>
-            <li><strong>Time allocation:</strong> 20 minutes for this part.</li>
+            <li><strong>Cursor's role:</strong> Use Cursor Chat to scaffold the GitHub and Stack Overflow API fetch logic. Mention: "Help me create a function that fetches GitHub user data given a username."</li>
+            <li><strong>API Integration:</strong> Participants will use Cursor's code generation to handle HTTP requests to GitHub API and Stack Overflow API.</li>
+            <li><strong>Common issues:</strong> Rate limiting (use app tokens in Secret Manager), CORS headers, API authentication, timeout on slow responses.</li>
+            <li><strong>Cursor prompts:</strong> "Generate code to call GitHub REST API for user profiles", "Create middleware to handle API errors gracefully".</li>
+            <li><strong>Success metric:</strong> Each team can POST a GitHub URL and receive repo data; POST Stack Overflow URL and receive reputation data.</li>
+            <li><strong>Time allocation:</strong> 20 minutes. Use Cursor Chat heavily to speed up scaffolding.</li>
           </ul>
         </div>
       </section>
 
       <section class="slide">
         <header>
-          <h1>Lab Part 2: Quality Pass</h1>
+          <h1>Lab Part 2: Quality & GCP Integration</h1>
         </header>
         <div class="two">
           <div class="panel">
             <h2>Choose at Least 2</h2>
             <ul>
-              <li>Better validation messages</li>
-              <li>Accessibility improvements</li>
-              <li>Responsive UI polish</li>
-              <li>Basic test plan</li>
+              <li>Add Firestore persistence (store CVs)</li>
+              <li>Integrate Secret Manager for API keys</li>
+              <li>PDF export to Cloud Storage</li>
+              <li>Input validation and error handling</li>
             </ul>
           </div>
           <div class="panel">
             <h2>Graduate Stretch</h2>
             <ul>
-              <li>Discuss Firestore persistence strategy</li>
-              <li>Add observability ideas</li>
+              <li>Add Cloud Logging for observability</li>
+              <li>Implement caching strategy with Memorystore</li>
+              <li>Rate limiting per user</li>
             </ul>
           </div>
         </div>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Undergraduate track:</strong> Choose 2 quality improvements. Focus on making it work reliably.</li>
-            <li><strong>Graduate track:</strong> Think about scale. How would this work with 100K users? What data strategy?</li>
-            <li><strong>Cursor prompts:</strong> "Review this component for accessibility", "Add error handling for slow networks", "Improve loading UX".</li>
-            <li><strong>Code review practice:</strong> Have teams review each other's AI-generated code. Learning moment.</li>
-            <li><strong>Time allocation:</strong> 10-15 minutes. Then deploy!</li>
+            <li><strong>Undergraduate track:</strong> Choose 2 GCP features. Firestore is easiest entry point for persistence.</li>
+            <li><strong>Graduate track:</strong> Think about production concerns: security (Secret Manager), observability (Cloud Logging), performance (caching).</li>
+            <li><strong>Cursor prompts:</strong> "Implement Firestore write to save this CV object", "Create a Cloud Logging handler for API errors", "Add code to read GitHub token from Secret Manager".</li>
+            <li><strong>Time allocation:</strong> 10-15 minutes. Cursor + GCP docs side-by-side accelerates this.</li>
           </ul>
         </div>
       </section>
 
       <section class="slide">
         <header>
-          <h1>Deployment Target: Google Cloud Run</h1>
+          <h1>Deployment Target: AI CV Generator Service</h1>
         </header>
         <div class="two">
           <div>
@@ -1303,7 +1314,7 @@ What should I start with?</pre>
               <li>Fast source deploy</li>
               <li>No VM management</li>
               <li>Scales automatically</li>
-              <li>Public URL in minutes</li>
+              <li>Public URL for CV generation in minutes</li>
             </ul>
           </div>
           <div class="interactive">
@@ -1312,7 +1323,7 @@ What should I start with?</pre>
               <label class="check-item"><input type="checkbox" class="deploy-check" /> Authenticated with gcloud</label>
               <label class="check-item"><input type="checkbox" class="deploy-check" /> Project is set correctly</label>
               <label class="check-item"><input type="checkbox" class="deploy-check" /> APIs enabled</label>
-              <label class="check-item"><input type="checkbox" class="deploy-check" /> Service deployed and reachable</label>
+              <label class="check-item"><input type="checkbox" class="deploy-check" /> CV generation endpoint deployed and reachable</label>
             </div>
             <div class="meter-wrap">
               <div class="meter-fill" id="deployProgressFill"></div>
@@ -1328,8 +1339,13 @@ What should I start with?</pre>
         </header>
         <pre>gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
-gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-unauthenticated</pre>
+# Enable all required APIs
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
+  artifactregistry.googleapis.com firestore.googleapis.com \
+  secretmanager.googleapis.com storage-api.googleapis.com
+# Deploy the service
+gcloud run deploy ai-cv-generator --source app --region us-central1 \
+  --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=YOUR_PROJECT_ID"</pre>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
@@ -1345,48 +1361,51 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
 
       <section class="slide">
         <header>
-          <h1>Post-Deploy Verification</h1>
+          <h1>Post-Deploy Verification (GCP)</h1>
         </header>
         <ul>
-          <li>Service URL loads</li>
+          <li>Service URL loads (check Cloud Run console)</li>
           <li>/api/health returns status ok</li>
-          <li>Create at least 3 fuel or gas status reports</li>
-          <li>UI reflects newly posted station data instantly</li>
-          <li>At least one report is flagged as suspicious by AI check</li>
+          <li>Test with real GitHub and Stack Overflow profiles</li>
+          <li>CV generation completes and displays in browser</li>
+          <li>Firestore Console shows stored CV documents</li>
+          <li>Cloud Logs show successful API calls (if enabled)</li>
         </ul>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Verification checklist:</strong> These are your "smoke tests" - quick checks that the app works.</li>
-            <li><strong>First check:</strong> Does the URL even load? If not, check gcloud logs.</li>
-            <li><strong>API health:</strong> /api/health endpoint returns {"status":"ok"} or similar. Proves backend is alive.</li>
-            <li><strong>Create reports:</strong> This tests the full flow: UI → API → data store → response back to UI.</li>
-            <li><strong>AI check:</strong> If a report gets flagged as "suspicious", it means the validation logic is working. High five!</li>
-            <li><strong>Timing:</strong> If everything works, this takes 2 minutes. Celebrate the win.</li>
+            <li><strong>Verification checklist:</strong> Production smoke tests using GCP observability.</li>
+            <li><strong>First check:</strong> Cloud Run Console shows service deployed with green checkmark.</li>
+            <li><strong>Health endpoint:</strong> /api/health confirms backend is alive.</li>
+            <li><strong>End-to-end test:</strong> Paste a real GitHub username → wait for CV → check response quality.</li>
+            <li><strong>GCP verification:</strong> Open Firestore Console → collection 'cvs' → see your generated documents.</li>
+            <li><strong>Logging:</strong> Cloud Logging shows request timestamps and any errors. Great for debugging live issues.</li>
+            <li><strong>Team celebration:</strong> Each deployed CV on the internet is a win. Call it out!</li>
           </ul>
         </div>
       </section>
 
       <section class="slide">
         <header>
-          <h1>Common Failure Cases and Fixes</h1>
+          <h1>Common GCP + Cursor Troubleshooting</h1>
         </header>
         <ul>
-          <li>Wrong active project in gcloud</li>
-          <li>Required APIs not enabled</li>
-          <li>Region mismatch or quota issues</li>
-          <li>Validation errors from malformed payload</li>
+          <li>GitHub API rate limit hit → Use Secret Manager for app tokens</li>
+          <li>Firestore permission denied → Check service account has editor role</li>
+          <li>Cloud Run timeout → Optimize API fetch logic with Cursor Chat</li>
+          <li>CORS errors from GitHub/Stack Overflow → Ask Cursor to add proxy middleware</li>
+          <li>Cold start latency → Cursor can help optimize dependencies</li>
         </ul>
-        <p class="lead">Recovery habit: read exact error text first, then ask Cursor with context.</p>
+        <p class="lead">Cursor workflow: <span class="kbd">Ctrl+K</span> → paste error + code → AI explains fix.</p>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Wrong gcloud project:</strong> Run `gcloud config list` to check. If wrong, run `gcloud config set project YOUR_ID`.</li>
-            <li><strong>APIs not enabled:</strong> Error says "API not enabled". Copy-paste the API name into the command.</li>
-            <li><strong>Quota issues:</strong> Rare, but region-specific. Try a different region (us-east1 if us-central1 is full).</li>
-            <li><strong>Validation errors:</strong> Send malformed JSON (missing field, wrong type), you get HTTP 400. Read error message carefully.</li>
-            <li><strong>Meta-skill:</strong> Copy exact error → Ask Cursor → 90% of the time, problem solved. This is the real skill.</li>
-            <li><strong>Stress relief:</strong> Say this: "Errors are data. Read them. They're your friend."</li>
+            <li><strong>GitHub API rate limit:</strong> Free tier = 60 req/hour unauthenticated, 5000 authenticated. Use Secret Manager to store GitHub token.</li>
+            <li><strong>Firestore permissions:</strong> Default Cloud Run service account needs Firestore Editor role. Grant via IAM console.</li>
+            <li><strong>Slow deployments:</strong> Use Cursor to identify blocking API calls. Often it's waiting for GitHub/Stack Overflow responses.</li>
+            <li><strong>CORS from external APIs:</strong> Cursor can scaffold a proxy endpoint that fetches server-side and returns to browser.</li>
+            <li><strong>Cold start:</strong> Cloud Run's first request after 15 min idle takes 3-5 seconds. Cursor can help with dependency optimization.</li>
+            <li><strong>Cursor debugging pattern:</strong> Error message → Ctrl+K → paste error + relevant code snippet → AI diagnosis → fix.</li>
           </ul>
         </div>
       </section>
@@ -1460,9 +1479,9 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
           <h3>Speaker Notes</h3>
           <ul>
             <li><strong>Advanced focus:</strong> You're learning to USE AI wisely, not just generate code.</li>
-            <li><strong>Trade-offs matter:</strong> Why Firestore over SQL? Why Cloud Run over Kubernetes? Document your reasoning.</li>
+            <li><strong>Trade-offs matter:</strong> Why direct API fetch vs cached profile signals? Why template-driven output vs freeform text?</li>
             <li><strong>Architecture thinking:</strong> Ask: "How would this scale to 100K users?" "What's the failure mode if X goes down?"</li>
-            <li><strong>Cost awareness:</strong> Estimate monthly cost. Cloud Run charges per request + memory. Firestore per read/write. Know the numbers.</li>
+            <li><strong>Cost awareness:</strong> Estimate monthly cost across hosting, model inference, and external API calls.</li>
             <li><strong>Security/Compliance:</strong> "Are we storing PII? What's our compliance requirement? Does the solution meet it?"</li>
             <li><strong>Win condition:</strong> Your team can justify every architectural decision. AI was helpful, but YOU are the engineer.</li>
           </ul>
@@ -1471,22 +1490,24 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
 
       <section class="slide">
         <header>
-          <h1>Optional Next Iterations</h1>
+          <h1>Optional Next Iterations for CV Generator</h1>
         </header>
         <ul>
-          <li>Add Firestore persistence</li>
-          <li>Add moderation rules</li>
-          <li>Add filters by mood and location</li>
-          <li>Add simple analytics dashboard</li>
+          <li>Add LinkedIn profile integration</li>
+          <li>Multi-format export (PDF, DOCX, ATS-optimized)</li>
+          <li>Templating engine (color schemes, layouts)</li>
+          <li>Analytics dashboard (most downloaded sections, viewing stats)</li>
+          <li>Premium features (custom domain CVs, analytics API)</li>
         </ul>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
             <li><strong>Stretch goals:</strong> If your team finishes early, these are next steps (not required).</li>
-            <li><strong>Firestore:</strong> Real database instead of in-memory. Persists data across deploys.</li>
-            <li><strong>Moderation:</strong> Manual approval workflow before reports go live. Reduces spam.</li>
-            <li><strong>Filtering:</strong> Users can search by location or fuel type. Reduces noise in feed.</li>
-            <li><strong>Analytics:</strong> Simple dashboard: "How many reports today? Most popular location?"</li>
+            <li><strong>LinkedIn integration:</strong> Fetch profile data via LinkedIn API. Requires OAuth setup.</li>
+            <li><strong>Multi-format export:</strong> Use Cursor to scaffold PDF generation (with libraries like pdfkit or html2pdf).</li>
+            <li><strong>Templating:</strong> Store CV templates in Firestore. Users choose layout before generation.</li>
+            <li><strong>Analytics:</strong> Simple dashboard: "How many CVs generated this week? Top companies viewing my CV?"</li>
+            <li><strong>Monetization:</strong> Premium features unlock recurring revenue. Framing: "This is how real SaaS works."</li>
             <li><strong>Framing:</strong> Say: "You'll have ideas. Write them down. Post-workshop, you can ship them."</li>
           </ul>
         </div>
@@ -1494,45 +1515,48 @@ gcloud run deploy fuel-finder-live --source app --region us-central1 --allow-una
 
       <section class="slide">
         <header>
-          <h1>Resource Pack</h1>
+          <h1>Resource Pack & Setup</h1>
         </header>
         <ul>
           <li><a href="https://github.com/sajeetharan/vibecoding-workshop" target="_blank" style="color: #00d9ff; text-decoration: underline;">GitHub Repository @sajeetharan</a></li>
-          <li>workshop/participant-handbook.md</li>
-          <li>workshop/cursor-prompt-playbook.md</li>
-          <li>deploy/gcp-cloud-run.md</li>
+          <li><strong>Cursor Setup:</strong> cursor.sh + .cursorrules file for CV Generator context</li>
+          <li><strong>MCP Servers (optional):</strong> GitHub + Stack Overflow integrations via MCP</li>
+          <li>workshop/gcp-setup-guide.md (service account, APIs, Secret Manager)</li>
+          <li>workshop/cursor-cv-prompts.md (copy-paste prompts for each API)</li>
         </ul>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Post-workshop:</strong> Everything in the repo. Teams can refer to it weeks later.</li>
-            <li><strong>Handbook:</strong> Detailed technical walkthrough. Answer sheet for "How did we build this?"</li>
-            <li><strong>Prompt playbook:</strong> Copy-paste ready prompts. "When stuck, use prompt #5."</li>
-            <li><strong>Deployment guide:</strong> Step-by-step Cloud Run walkthrough. Handles edge cases.</li>
-            <li><strong>Engagement hack:</strong> Give everyone the GitHub link in QR code. Bookmark it NOW.</li>
+            <li><strong>Cursor .cursorrules:</strong> Include CV Generator context (GitHub API, Stack Overflow API, Firestore schema) so AI suggestions are relevant.</li>
+            <li><strong>MCP servers:</strong> Optional but powerful. GitHub MCP can directly query repos; Stack Overflow MCP can fetch user data. Reduces HTTP boilerplate.</li>
+            <li><strong>GCP Setup Guide:</strong> Walks through service account creation, IAM roles, Secret Manager setup, API enablement.</li>
+            <li><strong>Cursor prompts:</strong> Pre-written prompts for "Fetch GitHub user repos", "Query Stack Overflow reputation", "Generate CV from signals".</li>
+            <li><strong>Engagement:</strong> Give everyone the GitHub link + QR code. Bookmark the GCP setup guide in first 5 minutes of lab time.</li>
           </ul>
         </div>
       </section>
 
       <section class="slide">
         <header>
-          <h1>Thank You</h1>
-          <p class="lead">Build responsibly. Ship confidently.</p>
+          <h1>Thank You: You Built an AI SaaS</h1>
+          <p class="lead">Build responsibly. Ship to production confidently.</p>
         </header>
         <ul>
-          <li>Publish your app URL</li>
-          <li>Share your 3 best prompts</li>
-          <li>Document one engineering decision you owned</li>
+          <li>Publish your live CV Generator URL</li>
+          <li>Share your 3 best Cursor prompts (the ones that saved you time)</li>
+          <li>Document one GCP decision you owned (why Firestore? why Secret Manager?)</li>
+          <li>Optional: Deploy again with a different Stack Overflow user to test end-to-end</li>
         </ul>
         <div class="notes">
           <h3>Speaker Notes</h3>
           <ul>
-            <li><strong>Celebration moment:</strong> Everyone who deployed has won. Call it out publicly.</li>
-            <li><strong>Publish URL:</strong> Create a shared doc or Slack thread. Celebrate deployed apps.</li>
-            <li><strong>Best prompts:</strong> Learning from each other. "What prompt saved you the most time?"</li>
-            <li><strong>Decision log:</strong> "I chose Express because it's lightweight" - this is YOUR voice, not AI's.</li>
-            <li><strong>Closing line:</strong> "You shipped code today using AI as a tool. That's the win. Keep building."</li>
-            <li><strong>Call to action:</strong> Encourage participants to: share on LinkedIn, continue on the project, bring feedback.</li>
+            <li><strong>Celebration moment:</strong> Everyone who deployed a live CV Generator has won. Call it out publicly. This is a working SaaS app.</li>
+            <li><strong>Publish URL:</strong> Create a shared doc or Slack thread. Celebrate deployed apps. "Share your live CV Generator link!"</li>
+            <li><strong>Best prompts:</strong> Learning from each other. "Which Cursor prompts were game-changers? GitHub API integration? Firestore writes?"</li>
+            <li><strong>GCP decisions:</strong> "I chose Firestore for persistence because it scales without infrastructure" - this is YOU thinking like an engineer.</li>
+            <li><strong>Testing in production:</strong> The real test: generate a CV for a famous GitHub developer. Did it work?</li>
+            <li><strong>Closing line:</strong> "You shipped a working SaaS app today using Cursor + GCP + AI. That's the win. You're ready to ship anything now."</li>
+            <li><strong>Call to action:</strong> Encourage: share on LinkedIn with #VibeCoding hashtag, continue building, bring feedback for next iteration.</li>
           </ul>
         </div>
       </section>
