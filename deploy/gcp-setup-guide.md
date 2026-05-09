@@ -14,8 +14,10 @@ This guide walks you through setting up your Google Cloud environment for the CV
 Use commands for your shell:
 
 - Bash (Mac/Linux): uses `export VAR=value` and `$VAR`
-- PowerShell (Windows): uses `$VAR = "value"` and `$VAR`
+- PowerShell (Windows): uses `$env:VAR = "value"` and `$env:VAR`
 - Command Prompt (Windows cmd): uses `set VAR=value` and `%VAR%`
+
+For persistent variables on Windows cmd, use `setx VAR "value"` and reopen the terminal.
 
 If a command in this guide uses `export`, use the cmd or PowerShell equivalent shown in each step.
 
@@ -41,6 +43,23 @@ Open terminal and run:
 
 ```bash
 gcloud config set project cv-generator-workshop
+```
+
+Optional: keep the project ID in an environment variable for later commands.
+
+```bash
+export PROJECT_ID=cv-generator-workshop
+echo $PROJECT_ID
+```
+
+```powershell
+$env:PROJECT_ID="cv-generator-workshop"
+echo $env:PROJECT_ID
+```
+
+```cmd
+set PROJECT_ID=cv-generator-workshop
+echo %PROJECT_ID%
 ```
 
 Then copy-paste this single command (all on one line):

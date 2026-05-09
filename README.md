@@ -80,6 +80,11 @@ gcloud config set project YOUR_PROJECT_ID
 gcloud run deploy ai-cv-generator --source app --region us-central1 --allow-unauthenticated
 ```
 
+Windows note:
+- Command Prompt (cmd): use `set PROJECT_ID=YOUR_PROJECT_ID` for a session variable, or `setx PROJECT_ID "YOUR_PROJECT_ID"` for persistent.
+- PowerShell: use `$env:PROJECT_ID="YOUR_PROJECT_ID"`.
+- Any shell: `gcloud config set project YOUR_PROJECT_ID` is the recommended way to set active project for `gcloud`.
+
 ## Suggested Duration
 - 3.5 to 4.5 hours total.
 
