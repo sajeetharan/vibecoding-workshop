@@ -429,6 +429,9 @@ This starter app runs on `8080` by default (`PORT` env var can override it).
 When ready to deploy:
 
 ```bash
+# Run from workspace root
+cd app
+
 # Set variables
 export PROJECT_ID=$(gcloud config get-value project)
 export REGISTRY_REGION="us-central1"
@@ -445,8 +448,20 @@ docker tag $IMAGE_NAME:latest \
 docker push $REGISTRY_REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/$IMAGE_NAME:latest
 ```
 
+**PowerShell**:
+```powershell
+Set-Location app
+$env:PROJECT_ID = gcloud config get-value project
+$env:REGISTRY_REGION = "us-central1"
+$env:IMAGE_NAME = "cv-generator"
+docker build -t $env:IMAGE_NAME`:latest .
+docker tag $env:IMAGE_NAME`:latest "$env:REGISTRY_REGION-docker.pkg.dev/$env:PROJECT_ID/cloud-run-source-deploy/$env:IMAGE_NAME:latest"
+docker push "$env:REGISTRY_REGION-docker.pkg.dev/$env:PROJECT_ID/cloud-run-source-deploy/$env:IMAGE_NAME:latest"
+```
+
 **Command Prompt (cmd)**:
 ```cmd
+cd app
 for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
 set REGISTRY_REGION=us-central1
 set IMAGE_NAME=cv-generator
@@ -454,6 +469,8 @@ docker build -t %IMAGE_NAME%:latest .
 docker tag %IMAGE_NAME%:latest %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
 docker push %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
 ```
+
+If you see `invalid tag "$IMAGE_NAME:latest"`, you ran a Bash command in Windows `cmd`. Use `%IMAGE_NAME%` in `cmd` or `$env:IMAGE_NAME` in PowerShell.
 
 ---
 
