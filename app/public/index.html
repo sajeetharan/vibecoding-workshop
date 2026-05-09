@@ -198,6 +198,29 @@
       margin: 0;
       max-height: 180px;
     }
+
+    .profile-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .profile-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid #cbd5e1;
+      display: none;
+    }
+
+    .warning-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: #9a3412;
+      font-size: 0.88rem;
+    }
   </style>
 </head>
 <body>
@@ -258,6 +281,9 @@
           <label for="stackOverflowUserId">Stack Overflow User ID</label>
           <input id="stackOverflowUserId" placeholder="e.g., 22656" />
 
+          <label for="profileImageUrl">Profile Image URL (optional override)</label>
+          <input id="profileImageUrl" placeholder="https://.../profile.jpg" />
+
           <label for="topSkills">Top Skills (comma or new line separated)</label>
           <textarea id="topSkills" rows="3" placeholder="Node.js, Express, PostgreSQL, CI/CD"></textarea>
 
@@ -276,8 +302,14 @@ Reduced production errors by 45 percent"></textarea>
         <h2>Output</h2>
         <p class="status" id="statusText">No CV generated yet.</p>
 
+        <div class="profile-wrap">
+          <img id="profileAvatar" class="profile-avatar" alt="Candidate profile" />
+          <div id="sourceText"></div>
+        </div>
+
         <div class="meta" id="metaInfo"></div>
         <div class="actions" id="outputActions"></div>
+        <ul class="warning-list" id="warningList"></ul>
 
         <h3 class="section-title">Summary</h3>
         <p id="summaryText">-</p>
@@ -305,6 +337,9 @@ Reduced production errors by 45 percent"></textarea>
 
     const metaInfo = document.getElementById("metaInfo");
     const outputActions = document.getElementById("outputActions");
+    const warningList = document.getElementById("warningList");
+    const profileAvatar = document.getElementById("profileAvatar");
+    const sourceText = document.getElementById("sourceText");
     const summaryText = document.getElementById("summaryText");
     const skillsList = document.getElementById("skillsList");
     const projectsList = document.getElementById("projectsList");
@@ -318,6 +353,7 @@ Reduced production errors by 45 percent"></textarea>
     const linkedInInput = document.getElementById("linkedIn");
     const gitHubUsernameInput = document.getElementById("gitHubUsername");
     const stackOverflowUserIdInput = document.getElementById("stackOverflowUserId");
+    const profileImageUrlInput = document.getElementById("profileImageUrl");
     const focusRoleInput = document.getElementById("focusRole");
     const yearsExperienceInput = document.getElementById("yearsExperience");
     const topSkillsInput = document.getElementById("topSkills");
@@ -326,6 +362,10 @@ Reduced production errors by 45 percent"></textarea>
     function clearOutput() {
       metaInfo.innerHTML = "";
       outputActions.innerHTML = "";
+      warningList.innerHTML = "";
+      sourceText.textContent = "";
+      profileAvatar.style.display = "none";
+      profileAvatar.removeAttribute("src");
       summaryText.textContent = "-";
       skillsList.innerHTML = "";
       projectsList.innerHTML = "";
@@ -346,6 +386,7 @@ Reduced production errors by 45 percent"></textarea>
       const generatedAt = new Date(data.generatedAt).toLocaleString();
       const stats = data.stats || {};
       const candidate = (data.content && data.content.candidate) || {};
+      const sourceSignals = (data.content && data.content.sourceSignals) || {};
 
       metaInfo.innerHTML = [
         `<div><strong>CV ID:</strong> ${data.cvId}</div>`,
@@ -355,6 +396,23 @@ Reduced production errors by 45 percent"></textarea>
         `<div><strong>Projects:</strong> ${stats.projectCount || 0}</div>`,
         `<div><strong>Skills:</strong> ${stats.skillsCount || 0}</div>`
       ].join("");
+
+      const sourceChunks = [];
+      if (sourceSignals.github) {
+        sourceChunks.push(`GitHub repos: ${sourceSignals.github.publicRepos}`);
+      }
+      if (sourceSignals.stackOverflow) {
+        sourceChunks.push(`SO reputation: ${sourceSignals.stackOverflow.reputation}`);
+      }
+      sourceText.textContent = sourceChunks.join(" | ");
+
+      if (candidate.profileImageUrl) {
+        profileAvatar.src = candidate.profileImageUrl;
+        profileAvatar.style.display = "block";
+      } else {
+        profileAvatar.style.display = "none";
+        profileAvatar.removeAttribute("src");
+      }
 
       outputActions.innerHTML = "";
       if (data.downloadUrl) {
@@ -383,6 +441,13 @@ Reduced production errors by 45 percent"></textarea>
       });
       renderList(achievementsList, data.content && data.content.achievements);
 
+      warningList.innerHTML = "";
+      (data.warnings || []).forEach((warning) => {
+        const li = document.createElement("li");
+        li.textContent = warning;
+        warningList.appendChild(li);
+      });
+
       cvOutput.textContent = JSON.stringify(data, null, 2);
     }
 
@@ -401,6 +466,7 @@ Reduced production errors by 45 percent"></textarea>
           linkedIn: linkedInInput.value.trim(),
           gitHubUsername: gitHubUsernameInput.value.trim(),
           stackOverflowUserId: stackOverflowUserIdInput.value.trim(),
+          profileImageUrl: profileImageUrlInput.value.trim(),
           focusRole: focusRoleInput.value.trim(),
           yearsExperience: yearsExperienceInput.value.trim(),
           topSkills: topSkillsInput.value,
