@@ -437,6 +437,12 @@ export PROJECT_ID=$(gcloud config get-value project)
 export REGISTRY_REGION="us-central1"
 export IMAGE_NAME="cv-generator"
 
+# One-time setup: create Artifact Registry repository (safe to run once)
+gcloud artifacts repositories create cloud-run-source-deploy \
+  --repository-format=docker \
+  --location=$REGISTRY_REGION \
+  --description="Docker repository for Cloud Run workshop images"
+
 # Build Docker image
 docker build -t $IMAGE_NAME:latest .
 
@@ -454,6 +460,7 @@ Set-Location app
 $env:PROJECT_ID = gcloud config get-value project
 $env:REGISTRY_REGION = "us-central1"
 $env:IMAGE_NAME = "cv-generator"
+gcloud artifacts repositories create cloud-run-source-deploy --repository-format=docker --location=$env:REGISTRY_REGION --description="Docker repository for Cloud Run workshop images"
 docker build -t $env:IMAGE_NAME`:latest .
 docker tag $env:IMAGE_NAME`:latest "$env:REGISTRY_REGION-docker.pkg.dev/$env:PROJECT_ID/cloud-run-source-deploy/$env:IMAGE_NAME:latest"
 docker push "$env:REGISTRY_REGION-docker.pkg.dev/$env:PROJECT_ID/cloud-run-source-deploy/$env:IMAGE_NAME:latest"
@@ -465,6 +472,7 @@ cd app
 for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
 set REGISTRY_REGION=us-central1
 set IMAGE_NAME=cv-generator
+gcloud artifacts repositories create cloud-run-source-deploy --repository-format=docker --location=%REGISTRY_REGION% --description="Docker repository for Cloud Run workshop images"
 docker build -t %IMAGE_NAME%:latest .
 docker tag %IMAGE_NAME%:latest %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
 docker push %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
