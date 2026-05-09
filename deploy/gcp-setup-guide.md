@@ -9,6 +9,16 @@ This guide walks you through setting up your Google Cloud environment for the CV
 - GitHub personal access token (https://github.com/settings/tokens)
 - Basic terminal/CLI comfort
 
+### Shell Quick Guide
+
+Use commands for your shell:
+
+- Bash (Mac/Linux): uses `export VAR=value` and `$VAR`
+- PowerShell (Windows): uses `$VAR = "value"` and `$VAR`
+- Command Prompt (Windows cmd): uses `set VAR=value` and `%VAR%`
+
+If a command in this guide uses `export`, use the cmd or PowerShell equivalent shown in each step.
+
 ## Step 1: Create Google Cloud Project
 
 1. Go to https://console.cloud.google.com/
@@ -115,6 +125,7 @@ gcloud secrets create github-token --replication-policy="automatic" --data-file=
 **If Option B seems stuck**: It's waiting for your input! 
 - **Mac/Linux**: Paste token → press Enter → press Ctrl+D
 - **Windows PowerShell**: Paste token → press Enter → press Ctrl+Z → press Enter
+- **Windows Command Prompt (cmd)**: Paste token → press Enter → press Ctrl+Z → press Enter
 
 **Verify**: 
 ```bash
@@ -150,6 +161,7 @@ gcloud secrets create llm-api-key --replication-policy="automatic" --data-file=-
 **If it seems stuck**: It's waiting for input!
 - **Mac/Linux**: Paste key → press Enter → press Ctrl+D
 - **Windows PowerShell**: Paste key → press Enter → press Ctrl+Z → press Enter
+- **Windows Command Prompt (cmd)**: Paste key → press Enter → press Ctrl+Z → press Enter
 
 **Verify**:
 ```bash
@@ -169,12 +181,27 @@ Cloud Run needs a service account with permissions to access Firestore and Secre
 gcloud iam service-accounts create cv-generator --display-name="CV Generator Service Account"
 ```
 
+**PowerShell**:
+```powershell
+gcloud iam service-accounts create cv-generator --display-name="CV Generator Service Account"
+```
 **Step 2**: Store the service account email
 ```bash
 export SA_EMAIL=$(gcloud iam service-accounts list --filter="displayName:CV Generator Service Account" --format='value(email)')
 echo $SA_EMAIL
 ```
 
+**PowerShell**:
+```powershell
+$SA_EMAIL = gcloud iam service-accounts list --filter="displayName:CV Generator Service Account" --format='value(email)'
+$SA_EMAIL
+```
+
+**Command Prompt (cmd)**:
+```cmd
+for /f "delims=" %i in ('gcloud iam service-accounts list --filter="displayName:CV Generator Service Account" --format="value(email)"') do set SA_EMAIL=%i
+echo %SA_EMAIL%
+```
 **Expected output**:
 ```
 cv-generator@cv-generator-workshop.iam.gserviceaccount.com
@@ -184,6 +211,12 @@ If the above doesn't work, set it manually:
 ```bash
 export SA_EMAIL="cv-generator@$(gcloud config get-value project).iam.gserviceaccount.com"
 echo $SA_EMAIL
+```
+
+**Command Prompt (cmd) manual fallback**:
+```cmd
+set SA_EMAIL=cv-generator@cv-generator-workshop.iam.gserviceaccount.com
+echo %SA_EMAIL%
 ```
 
 ---
@@ -209,9 +242,23 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/logging.logWriter" --quiet
 ```
 
+**Command Prompt (cmd)**:
+```cmd
+for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%SA_EMAIL%" --role="roles/datastore.user" --quiet
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%SA_EMAIL%" --role="roles/secretmanager.secretAccessor" --quiet
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%SA_EMAIL%" --role="roles/storage.objectCreator" --quiet
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%SA_EMAIL%" --role="roles/logging.logWriter" --quiet
+```
+
 **Verify** (copy-paste single line):
 ```bash
 gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members" --filter="bindings.members:$SA_EMAIL"
+```
+
+**Command Prompt (cmd)**:
+```cmd
+gcloud projects get-iam-policy %PROJECT_ID% --flatten="bindings[].members" --filter="bindings.members:%SA_EMAIL%"
 ```
 
 Should list 4 roles for your service account
@@ -228,6 +275,13 @@ gsutil mb -l us-central1 gs://$BUCKET_NAME
 
 # Set bucket permissions (public read once signed URLs generated)
 gsutil defacl ch -u AllUsers:R gs://$BUCKET_NAME
+```
+
+**Command Prompt (cmd)**:
+```cmd
+set BUCKET_NAME=cv-generator-pdfs-%PROJECT_ID%
+gsutil mb -l us-central1 gs://%BUCKET_NAME%
+gsutil defacl ch -u AllUsers:R gs://%BUCKET_NAME%
 ```
 
 **Verify**:
@@ -275,6 +329,16 @@ EOF
    - `your-llm-api-key-here` → paste your API key from Step 4.2
    - `LLM_PROVIDER` → use one of: `gemini`, `openai`, `claude`
 
+**PowerShell**:
+```powershell
+@"
+GCP_PROJECT_ID=cv-generator-workshop
+GITHUB_TOKEN=your-github-token-here
+LLM_API_KEY=your-llm-api-key-here
+LLM_PROVIDER=gemini
+PORT=3000
+"@ | Out-File -Encoding UTF8 .env
+```
 3. **Never commit .env to GitHub!** (add to .gitignore)
 
 ---
@@ -293,6 +357,12 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 # Store your project ID for later
 export PROJECT_ID=$(gcloud config get-value project)
 echo "Project ID: $PROJECT_ID"
+```
+
+**Command Prompt (cmd)**:
+```cmd
+for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
+echo Project ID: %PROJECT_ID%
 ```
 
 ---
@@ -351,6 +421,16 @@ docker tag $IMAGE_NAME:latest \
 docker push $REGISTRY_REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/$IMAGE_NAME:latest
 ```
 
+**Command Prompt (cmd)**:
+```cmd
+for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
+set REGISTRY_REGION=us-central1
+set IMAGE_NAME=cv-generator
+docker build -t %IMAGE_NAME%:latest .
+docker tag %IMAGE_NAME%:latest %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
+docker push %REGISTRY_REGION%-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/%IMAGE_NAME%:latest
+```
+
 ---
 
 ## Step 13: Deploy to Cloud Run
@@ -361,9 +441,20 @@ export PROJECT_ID=$(gcloud config get-value project)
 export SA_EMAIL="cv-generator@${PROJECT_ID}.iam.gserviceaccount.com"
 ```
 
+**Command Prompt (cmd)**:
+```cmd
+for /f "delims=" %i in ('gcloud config get-value project') do set PROJECT_ID=%i
+set SA_EMAIL=cv-generator@%PROJECT_ID%.iam.gserviceaccount.com
+```
+
 **Step 2**: Deploy (single-line version - copy & paste as-is):
 ```bash
 gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account $SA_EMAIL --memory 512Mi --cpu 1 --timeout 3600 --max-instances 100 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
+```
+
+**Command Prompt (cmd)**:
+```cmd
+gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account %SA_EMAIL% --memory 512Mi --cpu 1 --timeout 3600 --max-instances 100 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=%PROJECT_ID%"
 ```
 
 **Alternative** (multi-line, easier to read):
@@ -412,6 +503,12 @@ curl -X POST $SERVICE_URL/api/generate-cv \
 # Go to https://console.cloud.google.com/firestore
 # Browse "cvs" collection
 # Should see generated CV documents
+```
+
+**Command Prompt (cmd)**:
+```cmd
+set SERVICE_URL=https://cv-generator-xyz.run.app
+curl %SERVICE_URL%/api/health
 ```
 
 ---
@@ -557,11 +654,26 @@ async function generateCV(profileSignals) {
 
 **Install SDK**:
 ```bash
+**PowerShell**:
+```powershell
+# Create bucket (name must be globally unique)
+$BUCKET_NAME = "cv-generator-pdfs-$PROJECT_ID"
+
+gsutil mb -l us-central1 gs://$BUCKET_NAME
+
+# Set bucket permissions (public read once signed URLs generated)
+gsutil defacl ch -u AllUsers:R gs://$BUCKET_NAME
+```
 npm install @anthropic-ai/sdk
 ```
 
 **Code**:
 ```javascript
+
+**PowerShell**:
+```powershell
+gsutil ls
+```
 const Anthropic = require("@anthropic-ai/sdk");
 
 const client = new Anthropic.default({
@@ -576,10 +688,18 @@ async function generateCV(profileSignals) {
       role: "user",
       content: `Generate a professional CV from these signals:\n${JSON.stringify(profileSignals)}`
     }]
+    ### 📌 Important: Choose Your Shell
   });
+    This guide includes commands for **both Bash and PowerShell**. Choose ONE based on your OS:
   return message.content[0].type === "text" ? message.content[0].text : "";
+    | OS | Shell | Commands to Use |
+    |---|---|---|
+    | **Mac / Linux** | Bash | 🔵 Use `bash` commands (uses `export`, `$VAR`) |
+    | **Windows** | PowerShell | 🔴 Use `powershell` commands (uses `$VAR = value`) |
 }
+    **All commands come with both versions** — just skip the one that doesn't apply to you.
 ```
+    ---
 
 **Cost**: ~$0.003 per CV (1000 tokens)
 
