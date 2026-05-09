@@ -1,53 +1,44 @@
 # Vibe Coding with Cursor
 ## From Idea to Cloud Run in One Session
 
-Audience: Undergraduate + Graduate students  
-Duration: 4 hours  
-Build: Campus Vibe Board
-
-Speaker notes:
-- Frame the session as practical software delivery, not prompt tricks.
-- Emphasize that AI speeds up loops, but humans own quality.
+Audience: Undergraduate + Graduate students
+Duration: 4 hours
+Build: AI Powered CV Generator
 
 ---
 
 # What We Are Building Today
 
-Campus Vibe Board:
-- Post a mood update
-- Add location + short study tip
-- View live feed + mood distribution
+AI Powered CV Generator:
+- Accept GitHub username + Stack Overflow user ID
+- Extract project and skill signals
+- Generate professional CV sections
+- Export CV as downloadable PDF
 - Deploy publicly on Google Cloud Run
-
-Speaker notes:
-- Keep scope intentionally small so teams can ship.
 
 ---
 
-# Why "Vibe Coding" Matters
+# Why Vibe Coding Matters
 
-- Faster first draft of ideas
-- Better momentum for beginners
-- More time for product thinking
+- Faster delivery loop from prompt to working software
+- Better momentum for beginner and advanced teams
+- More time for product and quality decisions
 - Strong pair-programming behavior with AI
 
 Risks:
 - Over-trusting generated code
 - Scope explosion
-- Hidden bugs in "looks good" code
-
-Speaker notes:
-- This is not no-code; it is assisted software engineering.
+- Hidden quality issues
 
 ---
 
 # Learning Outcomes
 
 By end of workshop, each team can:
-- Turn fuzzy ideas into scoped implementation plans
+- Scope a CV product iteration clearly
 - Use Cursor prompts for build, review, and debugging
-- Ship a full-stack app
-- Deploy and validate in Cloud Run
+- Ship a full-stack app to Cloud Run
+- Validate output quality with practical checks
 
 ---
 
@@ -55,27 +46,17 @@ By end of workshop, each team can:
 
 1. Kickoff and vibe coding mindset
 2. Prompt patterns in Cursor
-3. Lab Part 1: build core app
-4. Lab Part 2: improve quality
+3. Lab Part 1: build core CV flow
+4. Lab Part 2: improve quality and PDF export
 5. Deploy to Cloud Run
-6. Demo + reflection
+6. Demo and reflection
 
 ---
 
-# Ground Rules for AI-Assisted Building
-
-- Small steps over big rewrites
-- Read before accepting generated code
-- Validate behavior after each change
-- Track assumptions explicitly
-- Keep a human decision log
-
----
-
-# Cursor Prompt Pattern 1: Scope First
+# Prompt Pattern 1: Scope First
 
 Prompt:
-"Propose a 60-minute implementation plan. Keep scope small, list files to change, add acceptance criteria."
+Propose a 60-minute implementation plan. Keep scope small, list files to change, add acceptance criteria.
 
 Expected output:
 - Sequence of tasks
@@ -84,10 +65,10 @@ Expected output:
 
 ---
 
-# Cursor Prompt Pattern 2: Focused Build
+# Prompt Pattern 2: Focused Build
 
 Prompt:
-"Implement feature X with the smallest maintainable change. Do not touch unrelated files."
+Implement feature X with the smallest maintainable change. Do not touch unrelated files.
 
 Why this works:
 - Reduces regressions
@@ -96,10 +77,10 @@ Why this works:
 
 ---
 
-# Cursor Prompt Pattern 3: Review and Risk
+# Prompt Pattern 3: Review and Risk
 
 Prompt:
-"Review this diff as a senior engineer. List bugs, edge cases, and regressions by severity."
+Review this diff as a senior engineer. List bugs, edge cases, and regressions by severity.
 
 Use it when:
 - Before merge
@@ -108,10 +89,10 @@ Use it when:
 
 ---
 
-# Cursor Prompt Pattern 4: Debug Fast
+# Prompt Pattern 4: Debug Fast
 
 Prompt:
-"Given this error and current code, list 3 likely root causes and lowest-risk fix first."
+Given this error and current code, list 3 likely root causes and lowest-risk fix first.
 
 Debug loop:
 1. Reproduce
@@ -124,43 +105,46 @@ Debug loop:
 # Architecture We Will Build
 
 Frontend:
-- Static HTML/CSS/JS
+- Static HTML/CSS/JS UI for profile input and preview
 
 Backend:
 - Express API
-- In-memory vibe list
+- GitHub and Stack Overflow signal fetch
+- In-memory CV records
+- PDF generation endpoint
 
 Endpoints:
 - GET /api/health
-- GET /api/vibes
-- POST /api/vibes
+- POST /api/generate-cv
+- GET /api/cvs/:cvId
+- GET /api/cvs/:cvId/pdf
 
 ---
 
-# Lab Part 1 (Build Core)
+# Lab Part 1: Core Flow
 
 Task checklist:
 - Run app locally
-- Inspect API + UI flow
-- Add one new field or validation rule
-- Confirm feed updates correctly
+- Generate CV from sample profiles
+- Validate summary, skills, and projects
+- Validate PDF download
 
 Definition of done:
-- Team can submit and view vibe posts locally
+- Team can generate and download at least one detailed CV locally
 
 ---
 
-# Lab Part 2 (Quality Pass)
+# Lab Part 2: Quality Pass
 
 Choose at least 2:
-- Better validation messages
-- Accessibility improvements
-- Responsive UI polish
-- Basic test plan
+- Improve professional wording in CV sections
+- Improve field validation and error messages
+- Improve accessibility and responsive layout
+- Add checklist-based manual QA plan
 
 Graduate stretch:
-- Discuss persistence strategy (Firestore)
-- Add simple observability ideas
+- Discuss persistence strategy with Firestore
+- Add observability and failure diagnostics
 
 ---
 
@@ -169,22 +153,17 @@ Graduate stretch:
 Why Cloud Run for workshops:
 - Fast source deploy
 - No VM management
-- Scales automatically
+- Auto scaling
 - Public URL in minutes
 
 ---
 
 # Deploy Commands
 
-```bash
 gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
-gcloud run deploy campus-vibe-board --source app --region us-central1 --allow-unauthenticated
-```
-
-Speaker notes:
-- Explain this uses buildpacks/source deploy flow.
+gcloud run deploy cv-generator --source app --region us-central1 --allow-unauthenticated
 
 ---
 
@@ -193,20 +172,20 @@ Speaker notes:
 Check:
 - Service URL loads
 - /api/health returns status ok
-- Can create at least 3 vibe posts
-- UI reflects newly posted data
+- CV generation returns cvId and detailed content
+- PDF endpoint downloads correctly
 
 ---
 
 # Common Failure Cases and Fixes
 
 - Wrong active project in gcloud
-- Required APIs not enabled
-- Region mismatch or quota issues
-- Validation errors from malformed payload
+- Missing IAM permission for service account actAs
+- API rate limit from GitHub
+- Stack Overflow user ID invalid
 
-Fast recovery habit:
-- Read exact error text first, then prompt Cursor with context.
+Recovery habit:
+- Read exact error text first, then prompt Cursor with full context.
 
 ---
 
@@ -215,32 +194,8 @@ Fast recovery habit:
 Before accepting AI-generated code, ask:
 - Is behavior correct?
 - Is this the simplest solution?
-- What edge case can break this?
-- What test or manual check proves it works?
-
----
-
-# Undergraduate Track Guidance
-
-Focus:
-- Prompt clarity
-- Working software
-- Explain your decisions
-
-Success signal:
-- Team ships with confidence and can describe their code path.
-
----
-
-# Graduate Track Guidance
-
-Focus:
-- Trade-offs and reliability
-- Lightweight architecture critique
-- Cost/performance/security awareness
-
-Success signal:
-- Team justifies design decisions beyond "AI suggested it".
+- Which edge case can fail?
+- What proves it works?
 
 ---
 
@@ -254,21 +209,12 @@ Success signal:
 
 ---
 
-# Reflection Prompts
-
-- Where did AI save the most time?
-- Where did human review matter most?
-- What prompt gave the best result?
-- What would you build next?
-
----
-
 # Optional Next Iterations
 
-- Add Firestore persistence
-- Add content moderation rules
-- Add filters by mood/location
-- Add simple analytics dashboard
+- Firestore persistence for generated CVs
+- LLM-assisted rewrite mode for ATS optimization
+- Multiple PDF design themes
+- Export DOCX in addition to PDF
 
 ---
 
@@ -276,16 +222,7 @@ Success signal:
 
 In this repo:
 - workshop/participant-handbook.md
-- workshop/cursor-prompt-playbook.md
-- deploy/gcp-cloud-run.md
-
----
-
-# Thank You
-
-Build responsibly. Ship confidently.
-
-Call to action:
-- Publish your app URL
-- Share 3 best prompts from your team
-- Document one engineering decision you owned
+- workshop/cursor-cv-prompts.md
+- workshop/cv-generator-rules-and-skills.md
+- workshop/cv-generator-technical-spec.md
+- deploy/gcp-setup-guide.md
