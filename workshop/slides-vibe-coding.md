@@ -158,6 +158,26 @@ Why Cloud Run for workshops:
 
 ---
 
+# Google Student Credits and Services Used
+
+Student credit pointers:
+- Many students can start with Google Cloud free trial credits or campus-issued workshop credits
+- Eligibility, amount, and duration vary by country, institution, and current Google programs
+- Verify your current offer before the workshop starts
+- Set a billing budget alert even when using credits
+
+Services used in this workshop:
+- Cloud Run for hosting the app
+- Cloud Build for source-based deployment
+- Artifact Registry for container images
+- IAM for access control and service account permissions
+- Secret Manager for tokens and API keys
+- Firestore for optional CV persistence
+- Cloud Storage for optional file export storage
+- Cloud Logging for monitoring and troubleshooting
+
+---
+
 # Deploy Commands
 
 gcloud auth login
