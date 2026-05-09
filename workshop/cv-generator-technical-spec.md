@@ -305,8 +305,10 @@ Response: {
      --memory 512Mi \
      --cpu 1 \
      --timeout 3600 \
-     --max-instances 100
+     --max-instances 20
    ```
+
+   Note: keep `--max-instances` aligned with regional Cloud Run CPU/memory quotas. With `--cpu 1` and `--memory 512Mi`, `20` is a safer workshop default.
 
 ## Monitoring & Observability
 

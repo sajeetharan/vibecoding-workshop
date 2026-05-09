@@ -498,12 +498,12 @@ set SA_EMAIL=cv-generator@%PROJECT_ID%.iam.gserviceaccount.com
 
 **Step 2**: Deploy (single-line version - copy & paste as-is):
 ```bash
-gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account $SA_EMAIL --memory 512Mi --cpu 1 --timeout 3600 --max-instances 100 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
+gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account $SA_EMAIL --memory 512Mi --cpu 1 --timeout 3600 --max-instances 20 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
 ```
 
 **Command Prompt (cmd)**:
 ```cmd
-gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account %SA_EMAIL% --memory 512Mi --cpu 1 --timeout 3600 --max-instances 100 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=%PROJECT_ID%"
+gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/%PROJECT_ID%/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account %SA_EMAIL% --memory 512Mi --cpu 1 --timeout 3600 --max-instances 20 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=%PROJECT_ID%"
 ```
 
 **Alternative** (multi-line, easier to read):
@@ -515,10 +515,13 @@ gcloud run deploy cv-generator \
   --memory 512Mi \
   --cpu 1 \
   --timeout 3600 \
-  --max-instances 100 \
+  --max-instances 20 \
   --allow-unauthenticated \
   --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
 ```
+
+**Why 20?** This workshop's default regional quota is often 20 vCPU and 40 GiB memory for Cloud Run in `us-central1`.
+With `--cpu 1` and `--memory 512Mi`, `--max-instances 100` requests 100 vCPU and 50 GiB, which exceeds quota.
 
 **Output**: Will print your Cloud Run service URL
 
@@ -608,6 +611,24 @@ gcloud builds log --limit 50
 Common issues:
 - Docker image build failed → check Dockerfile
 - Artifact Registry auth issue → re-run `gcloud auth configure-docker`
+
+### Error: `Max instances must be set to 20 or fewer` / `Quota violated`
+**Cause**: Your `--max-instances` value requests more total CPU or memory than your regional Cloud Run quota allows.
+
+**Quick fix**: redeploy with lower scale cap
+```bash
+gcloud run deploy cv-generator --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest --region us-central1 --service-account $SA_EMAIL --memory 512Mi --cpu 1 --timeout 3600 --max-instances 20 --allow-unauthenticated --set-env-vars="GCP_PROJECT_ID=$PROJECT_ID"
+```
+
+**How to size max instances**:
+- CPU limit: `floor(region_cpu_quota / cpu_per_instance)`
+- Memory limit: `floor(region_memory_quota / memory_per_instance)`
+- Use the lower of the two values
+
+**If you need more than 20**:
+- Lower per-instance CPU (example: `--cpu 0.5`) and recalculate
+- Deploy in another region with higher available quota
+- Request a Cloud Run quota increase in Google Cloud Console
 
 ---
 
