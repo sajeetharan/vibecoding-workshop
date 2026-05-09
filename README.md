@@ -80,6 +80,49 @@ gcloud config set project YOUR_PROJECT_ID
 gcloud run deploy ai-cv-generator --source app --region us-central1 --allow-unauthenticated
 ```
 
+### Common Deploy Error: iam.serviceaccounts.actAs denied
+
+If deploy fails with an error like:
+
+`Permission 'iam.serviceaccounts.actAs' denied on service account ...`
+
+it means your user (or Cloud Build service account) cannot impersonate the runtime service account.
+
+PowerShell quick fix:
+
+```powershell
+$PROJECT_ID = "cv-generator-workshop"
+$USER_EMAIL = "sajeefx@gmail.com"
+$SA_EMAIL = "cv-generator@$PROJECT_ID.iam.gserviceaccount.com"
+
+gcloud config set project $PROJECT_ID
+gcloud iam service-accounts describe $SA_EMAIL --project $PROJECT_ID
+
+# Let your user deploy services with this runtime identity
+gcloud iam service-accounts add-iam-policy-binding $SA_EMAIL `
+  --member="user:$USER_EMAIL" `
+  --role="roles/iam.serviceAccountUser" `
+  --project=$PROJECT_ID
+
+# If using source builds, also let Cloud Build act as this runtime identity
+$PROJECT_NUMBER = gcloud projects describe $PROJECT_ID --format="value(projectNumber)"
+$CLOUDBUILD_SA = "$PROJECT_NUMBER@cloudbuild.gserviceaccount.com"
+
+gcloud iam service-accounts add-iam-policy-binding $SA_EMAIL `
+  --member="serviceAccount:$CLOUDBUILD_SA" `
+  --role="roles/iam.serviceAccountUser" `
+  --project=$PROJECT_ID
+
+# Redeploy (important: pass only $SA_EMAIL, do not append @project again)
+gcloud run deploy cv-generator `
+  --image us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cv-generator:latest `
+  --region us-central1 `
+  --service-account $SA_EMAIL `
+  --allow-unauthenticated
+```
+
+Tip: if your project name is not `cv-generator-workshop`, replace `$PROJECT_ID` first.
+
 Windows note:
 - Command Prompt (cmd): use `set PROJECT_ID=YOUR_PROJECT_ID` for a session variable, or `setx PROJECT_ID "YOUR_PROJECT_ID"` for persistent.
 - PowerShell: use `$env:PROJECT_ID="YOUR_PROJECT_ID"`.

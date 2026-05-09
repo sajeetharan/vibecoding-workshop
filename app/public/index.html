@@ -3,17 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Destination Pulse - Sri Lanka Travel Guide</title>
+  <title>AI CV Generator</title>
   <style>
     :root {
-      --bg1: #f3fbf8;
-      --bg2: #e7f4ff;
-      --ink: #1f2937;
-      --brand: #0f766e;
-      --brand-2: #0369a1;
+      --bg-a: #f6f9fc;
+      --bg-b: #eaf0f7;
+      --ink: #1a202c;
+      --muted: #4a5568;
+      --line: #c9d3df;
       --card: #ffffff;
-      --line: #d1d5db;
-      --danger: #b91c1c;
+      --brand: #1f6feb;
+      --brand-2: #0e4fb6;
+      --danger: #c53030;
+      --ok: #2f855a;
+      --chip-bg: #eef4ff;
+      --chip-ink: #1e429f;
     }
 
     * { box-sizing: border-box; }
@@ -23,37 +27,36 @@
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 10% 20%, rgba(15, 118, 110, 0.15), transparent 30%),
-        radial-gradient(circle at 80% 10%, rgba(3, 105, 161, 0.13), transparent 34%),
-        linear-gradient(140deg, var(--bg1), var(--bg2));
+        radial-gradient(circle at 15% 10%, rgba(31, 111, 235, 0.13), transparent 35%),
+        linear-gradient(150deg, var(--bg-a), var(--bg-b));
       min-height: 100vh;
       padding: 24px;
     }
 
     .shell {
-      max-width: 950px;
+      max-width: 1120px;
       margin: 0 auto;
+      display: grid;
+      gap: 16px;
     }
 
-    .hero {
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.78);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-      margin-bottom: 20px;
+    .hero, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(30, 41, 59, 0.07);
     }
 
-    h1 {
+    .hero h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
       letter-spacing: -0.02em;
     }
 
-    .subtitle {
-      margin-top: 8px;
-      color: #334155;
+    .hero p {
+      margin: 10px 0 0;
+      color: var(--muted);
     }
 
     .grid {
@@ -62,227 +65,369 @@
       gap: 16px;
     }
 
-    @media (min-width: 860px) {
+    @media (min-width: 980px) {
       .grid { grid-template-columns: 0.95fr 1.05fr; }
-    }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
     }
 
     label {
       display: block;
-      font-size: 0.9rem;
       margin-bottom: 6px;
+      font-size: 0.92rem;
       font-weight: 600;
     }
 
     input, textarea {
       width: 100%;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #b9c4d2;
       border-radius: 10px;
       padding: 10px 12px;
-      font-size: 0.95rem;
       margin-bottom: 12px;
+      font-size: 0.95rem;
     }
 
     input:focus, textarea:focus {
-      outline: 2px solid rgba(15, 118, 110, 0.25);
+      outline: 2px solid rgba(31, 111, 235, 0.24);
       border-color: var(--brand);
     }
 
-    .row {
-      display: flex;
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 10px;
-      align-items: center;
     }
 
-    button {
+    @media (min-width: 680px) {
+      .row-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    button, .link-btn {
       border: none;
       border-radius: 10px;
       background: linear-gradient(90deg, var(--brand), var(--brand-2));
       color: #fff;
-      font-size: 0.95rem;
       font-weight: 700;
-      padding: 10px 16px;
+      font-size: 0.95rem;
+      padding: 10px 14px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    button:disabled { opacity: 0.7; cursor: wait; }
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    .link-btn.secondary {
+      background: #0f172a;
+    }
 
     .error {
       color: var(--danger);
       min-height: 20px;
-      font-size: 0.9rem;
+      margin: 8px 0 0;
     }
 
-    .stats {
+    .status {
+      color: var(--ok);
+      margin: 0 0 12px;
+      font-size: 0.92rem;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: #1f2937;
+      font-size: 0.92rem;
+    }
+
+    @media (min-width: 680px) {
+      .meta { grid-template-columns: 1fr 1fr; }
+    }
+
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .chip {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+    .chips li {
+      background: var(--chip-bg);
+      color: var(--chip-ink);
+      border: 1px solid #c6d6ff;
       border-radius: 999px;
       padding: 6px 10px;
       font-size: 0.85rem;
-      color: #1e3a8a;
     }
 
-    .feed {
-      display: grid;
-      gap: 10px;
+    .section-title {
+      margin: 14px 0 8px;
+      font-size: 1rem;
+      border-bottom: 1px solid #d9e2ef;
+      padding-bottom: 6px;
     }
 
-    .item {
-      border: 1px solid #dbeafe;
-      background: #f8fbff;
-      border-radius: 12px;
-      padding: 12px;
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: #243041;
     }
 
-    .item-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 4px;
-      font-size: 0.9rem;
-    }
+    .list li { margin: 6px 0; }
 
-    .mood {
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .location {
-      color: #334155;
-    }
-
-    .tip {
-      margin: 8px 0 0;
-      color: #0f172a;
+    .mono {
+      font-family: Consolas, Menlo, Monaco, monospace;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin: 0;
+      max-height: 180px;
     }
   </style>
 </head>
 <body>
   <main class="shell">
     <section class="hero">
-      <h1>🌴 Destination Pulse</h1>
-      <p class="subtitle">Share real-time travel experiences and discover hidden gems across Sri Lanka.</p>
+      <h1>AI CV Generator</h1>
+      <p>Generate a detailed CV and download it as PDF using the generated cvId.</p>
     </section>
 
     <section class="grid">
       <article class="panel">
-        <h2>✍️ Share Your Experience</h2>
-        <form id="vibeForm">
-          <label for="mood">Destination Vibe</label>
-          <input id="mood" maxlength="30" placeholder="Crowded, Peaceful, Rainy but Beautiful..." required />
-
-          <label for="location">Location</label>
-          <input id="location" maxlength="60" placeholder="e.g., Sigiriya, Ella, Kandy" required />
-
-          <label for="tip">Travel Tip</label>
-          <textarea id="tip" maxlength="200" rows="4" placeholder="What travelers should know about this spot?" required></textarea>
-
-          <div class="row">
-            <button id="submitBtn" type="submit">Share Experience</button>
+        <h2>Input</h2>
+        <form id="cvForm">
+          <div class="row-2">
+            <div>
+              <label for="fullName">Full Name</label>
+              <input id="fullName" placeholder="e.g., Jane Doe" />
+            </div>
+            <div>
+              <label for="focusRole">Target Role</label>
+              <input id="focusRole" placeholder="e.g., Backend Engineer" />
+            </div>
           </div>
 
+          <div class="row-2">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" placeholder="e.g., jane@domain.com" />
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" placeholder="e.g., +1 555 0100" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="location">Location</label>
+              <input id="location" placeholder="e.g., Colombo, Sri Lanka" />
+            </div>
+            <div>
+              <label for="yearsExperience">Years of Experience</label>
+              <input id="yearsExperience" placeholder="e.g., 4+" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="linkedIn">LinkedIn URL</label>
+              <input id="linkedIn" placeholder="https://linkedin.com/in/your-profile" />
+            </div>
+            <div>
+              <label for="gitHubUsername">GitHub Username</label>
+              <input id="gitHubUsername" placeholder="e.g., octocat" />
+            </div>
+          </div>
+
+          <label for="stackOverflowUserId">Stack Overflow User ID</label>
+          <input id="stackOverflowUserId" placeholder="e.g., 22656" />
+
+          <label for="topSkills">Top Skills (comma or new line separated)</label>
+          <textarea id="topSkills" rows="3" placeholder="Node.js, Express, PostgreSQL, CI/CD"></textarea>
+
+          <label for="highlights">Key Achievements (one per line)</label>
+          <textarea id="highlights" rows="5" placeholder="Increased API throughput by 32 percent
+Reduced production errors by 45 percent"></textarea>
+
+          <div class="actions">
+            <button id="submitBtn" type="submit">Generate CV</button>
+          </div>
           <p class="error" id="errorText" aria-live="polite"></p>
         </form>
       </article>
 
       <article class="panel">
-        <h2>🌍 Live Feed</h2>
-        <div class="stats" id="stats"></div>
-        <div class="feed" id="feed"></div>
+        <h2>Output</h2>
+        <p class="status" id="statusText">No CV generated yet.</p>
+
+        <div class="meta" id="metaInfo"></div>
+        <div class="actions" id="outputActions"></div>
+
+        <h3 class="section-title">Summary</h3>
+        <p id="summaryText">-</p>
+
+        <h3 class="section-title">Skills</h3>
+        <ul class="chips" id="skillsList"></ul>
+
+        <h3 class="section-title">Projects</h3>
+        <ul class="list" id="projectsList"></ul>
+
+        <h3 class="section-title">Achievements</h3>
+        <ul class="list" id="achievementsList"></ul>
+
+        <h3 class="section-title">Raw Response</h3>
+        <pre class="mono" id="cvOutput">{}</pre>
       </article>
     </section>
   </main>
 
   <script>
-    const form = document.getElementById("vibeForm");
-    const moodInput = document.getElementById("mood");
-    const locationInput = document.getElementById("location");
-    const tipInput = document.getElementById("tip");
-    const errorText = document.getElementById("errorText");
-    const feed = document.getElementById("feed");
-    const stats = document.getElementById("stats");
+    const form = document.getElementById("cvForm");
     const submitBtn = document.getElementById("submitBtn");
+    const errorText = document.getElementById("errorText");
+    const statusText = document.getElementById("statusText");
 
-    function renderStats(moodCounts) {
-      const entries = Object.entries(moodCounts || {});
-      stats.innerHTML = entries.length
-        ? entries.map(([mood, count]) => `<span class="chip">${mood}: ${count}</span>`).join("")
-        : "<span class=\"chip\">No vibes yet</span>";
+    const metaInfo = document.getElementById("metaInfo");
+    const outputActions = document.getElementById("outputActions");
+    const summaryText = document.getElementById("summaryText");
+    const skillsList = document.getElementById("skillsList");
+    const projectsList = document.getElementById("projectsList");
+    const achievementsList = document.getElementById("achievementsList");
+    const cvOutput = document.getElementById("cvOutput");
+
+    const fullNameInput = document.getElementById("fullName");
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+    const locationInput = document.getElementById("location");
+    const linkedInInput = document.getElementById("linkedIn");
+    const gitHubUsernameInput = document.getElementById("gitHubUsername");
+    const stackOverflowUserIdInput = document.getElementById("stackOverflowUserId");
+    const focusRoleInput = document.getElementById("focusRole");
+    const yearsExperienceInput = document.getElementById("yearsExperience");
+    const topSkillsInput = document.getElementById("topSkills");
+    const highlightsInput = document.getElementById("highlights");
+
+    function clearOutput() {
+      metaInfo.innerHTML = "";
+      outputActions.innerHTML = "";
+      summaryText.textContent = "-";
+      skillsList.innerHTML = "";
+      projectsList.innerHTML = "";
+      achievementsList.innerHTML = "";
+      cvOutput.textContent = "{}";
     }
 
-    function renderFeed(items) {
-      feed.innerHTML = items.length
-        ? items.map((item) => {
-            const date = new Date(item.createdAt).toLocaleString();
-            return `
-              <article class="item">
-                <div class="item-top">
-                  <span class="mood">${item.mood}</span>
-                  <span class="location">${item.location}</span>
-                </div>
-                <p class="tip">${item.tip}</p>
-                <small>${date}</small>
-              </article>
-            `;
-          }).join("")
-        : "<p>No vibe updates yet. Be the first.</p>";
+    function renderList(listEl, values, formatter) {
+      listEl.innerHTML = "";
+      (values || []).forEach((value) => {
+        const li = document.createElement("li");
+        li.textContent = formatter ? formatter(value) : value;
+        listEl.appendChild(li);
+      });
     }
 
-    async function loadVibes() {
-      const res = await fetch("/api/vibes");
-      const data = await res.json();
-      renderStats(data.moodCounts);
-      renderFeed(data.items || []);
+    function renderOutput(data) {
+      const generatedAt = new Date(data.generatedAt).toLocaleString();
+      const stats = data.stats || {};
+      const candidate = (data.content && data.content.candidate) || {};
+
+      metaInfo.innerHTML = [
+        `<div><strong>CV ID:</strong> ${data.cvId}</div>`,
+        `<div><strong>Status:</strong> ${data.status}</div>`,
+        `<div><strong>Generated:</strong> ${generatedAt}</div>`,
+        `<div><strong>Candidate:</strong> ${candidate.fullName || "-"}</div>`,
+        `<div><strong>Projects:</strong> ${stats.projectCount || 0}</div>`,
+        `<div><strong>Skills:</strong> ${stats.skillsCount || 0}</div>`
+      ].join("");
+
+      outputActions.innerHTML = "";
+      if (data.downloadUrl) {
+        const pdfBtn = document.createElement("a");
+        pdfBtn.className = "link-btn";
+        pdfBtn.href = data.downloadUrl;
+        pdfBtn.textContent = "Download PDF";
+        outputActions.appendChild(pdfBtn);
+      }
+
+      if (data.detailsUrl) {
+        const detailsBtn = document.createElement("a");
+        detailsBtn.className = "link-btn secondary";
+        detailsBtn.href = data.detailsUrl;
+        detailsBtn.target = "_blank";
+        detailsBtn.rel = "noreferrer";
+        detailsBtn.textContent = "Open JSON by cvId";
+        outputActions.appendChild(detailsBtn);
+      }
+
+      summaryText.textContent = (data.content && data.content.summary) || "-";
+
+      renderList(skillsList, data.content && data.content.skills);
+      renderList(projectsList, data.content && data.content.projects, (project) => {
+        return `${project.name}: ${project.impact} (Tech: ${(project.tech || []).join(", ")})`;
+      });
+      renderList(achievementsList, data.content && data.content.achievements);
+
+      cvOutput.textContent = JSON.stringify(data, null, 2);
     }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       errorText.textContent = "";
       submitBtn.disabled = true;
+      statusText.textContent = "Generating detailed CV...";
 
       try {
         const payload = {
-          mood: moodInput.value.trim(),
+          fullName: fullNameInput.value.trim(),
+          email: emailInput.value.trim(),
+          phone: phoneInput.value.trim(),
           location: locationInput.value.trim(),
-          tip: tipInput.value.trim()
+          linkedIn: linkedInInput.value.trim(),
+          gitHubUsername: gitHubUsernameInput.value.trim(),
+          stackOverflowUserId: stackOverflowUserIdInput.value.trim(),
+          focusRole: focusRoleInput.value.trim(),
+          yearsExperience: yearsExperienceInput.value.trim(),
+          topSkills: topSkillsInput.value,
+          highlights: highlightsInput.value
         };
 
-        const res = await fetch("/api/vibes", {
+        const response = await fetch("/api/generate-cv", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
 
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || "Failed to post vibe");
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to generate CV");
         }
 
-        form.reset();
-        await loadVibes();
-      } catch (err) {
-        errorText.textContent = err.message;
+        statusText.textContent = `Generated ${data.cvId}`;
+        renderOutput(data);
+      } catch (error) {
+        clearOutput();
+        statusText.textContent = "CV generation failed.";
+        errorText.textContent = error.message || "Unexpected error";
       } finally {
         submitBtn.disabled = false;
       }
-    });
-
-    loadVibes().catch((err) => {
-      errorText.textContent = `Unable to load vibes: ${err.message}`;
     });
   </script>
 </body>
