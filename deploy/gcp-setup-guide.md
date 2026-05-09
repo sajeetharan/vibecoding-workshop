@@ -391,6 +391,9 @@ echo Project ID: %PROJECT_ID%
 Before deploying, test your local environment:
 
 ```bash
+# Run from workspace root
+cd app
+
 # 1. Install dependencies
 npm install
 
@@ -398,19 +401,21 @@ npm install
 npm start
 
 # 3. Test health check (in new terminal)
-curl http://localhost:3000/api/health
+curl http://localhost:8080/api/health
 
 # Expected output:
 # {"status":"ok","timestamp":"2025-01-15T10:00:00Z","version":"1.0.0"}
 
-# 4. Test GitHub integration
-curl -X POST http://localhost:3000/api/github/torvalds
+# 4. Test vibes API
+curl http://localhost:8080/api/vibes
 
-# 5. Test profile signals
-curl -X POST http://localhost:3000/api/profile-signals \
+# 5. Create a vibe post
+curl -X POST http://localhost:8080/api/vibes \
   -H "Content-Type: application/json" \
-  -d '{"gitHubUsername":"torvalds","stackOverflowUserId":"1"}'
+  -d '{"mood":"Peaceful","location":"Ella","tip":"Go early for sunrise."}'
 ```
+
+This starter app runs on `8080` by default (`PORT` env var can override it).
 
 **Fix issues**:
 - Error: "GITHUB_TOKEN not set" → Check .env file has correct token

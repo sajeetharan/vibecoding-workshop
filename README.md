@@ -68,7 +68,7 @@ By the end of this workshop, participants will:
 2. From `app/`, run:
    - `npm install`
    - `npm run dev`
-3. Open http://localhost:3000
+3. Open http://localhost:8080 (or `http://localhost:$PORT` if `PORT` is set)
 4. Follow **[workshop/cursor-cv-prompts.md](workshop/cursor-cv-prompts.md)** for the lab journey.
 
 ## Fastest Deploy
